@@ -264,5 +264,3 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python
-main/__pycache__/utils.cpython-310.pyc
-main/__pycache__/views.cpython-310.pyc

@@ -19,20 +19,20 @@
 
 {% if group == "customer" %}
 {% for i in result %}
-<p>Заявка №{{ i.id }} от {{ i.aplic_date }} -- 
-  <a href="{% url 'pdf_application' pk=i.id %}">Заявка в PDF</a>
+<p>Заявка №{{ i.id }} от {{ i.aplic_date }} 
+  <p><a href="{% url 'pdf_application' pk=i.id %}"><button class="button grey">Заявка(PDF)</button></a> 
  {% endfor %} 
  {% endif %}
 
 
  {% if group == "engineer" %}
 {% for i in result %}
-<p>Заявка №{{ i.id }} от {{ i.aplic_date }} ({{i.user_fio}}) -- 
-  <a href="{% url 'application_complete_akt' pk=i.id %}">Заполнить АКТ</a> --
-  <a href="{% url 'pdf_akt' pk=i.id %}">Акт(PDF)</a> -- 
-  <a href="{% url 'pdf_application' pk=i.id %}">Заявка(PDF)</a> -- 
+<p>Заявка №{{ i.id }} от {{ i.aplic_date }} ({{i.user_fio}}) 
+  <a href="{% url 'application_complete_akt' pk=i.id %}">Заполнить АКТ</a>
+  <a href="{% url 'pdf_akt' pk=i.id %}">Акт(PDF)</a> 
+  <a href="{% url 'pdf_application' pk=i.id %}">Заявка(PDF)</a> 
   
-  <a href="{% url 'application_cancel' pk=i.id %}">Отменить</a> -- 
+  <a href="{% url 'application_cancel' pk=i.id %}">Отменить</a> 
   <a href="{% url 'application_give' pk=i.id %}">Подать</a>
   
  {% endfor %} 

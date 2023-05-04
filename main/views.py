@@ -13,13 +13,19 @@ from .models import *  # Application, Welding_method, Aplic_status
 
 
 def index(request):
+    """
+    Description of index
+
+    Args:
+        request (undefined):
+
+    """
     title = "Главная"
     # Определение группы пользователя
     username = str(request.user)
     if username != "AnonymousUser":
         user = get_object_or_404(User, username=username)
         group = user.groups.get(user=user.id)
-        print(group)
     else:
         group = "No_Group"
 
@@ -35,6 +41,13 @@ def index(request):
 
 @login_required(login_url=reverse_lazy("login"))
 def add_application(request):
+    """
+    Description of add_application
+
+    Args:
+        request (undefined):
+
+    """
     title = "Заявка"
 
     # Определение группы пользователя
@@ -108,9 +121,7 @@ def add_application(request):
                 param = "---"
             param = param.replace("',", "|")
             param = param.replace("'", "")
-            print(name_param, ": ", param)
             list_param.append(param)
-        print(len(list_param))
 
         application.aplic_user = User.objects.get(username=username)
         application.aplic_status = Aplic_status.objects.get(aplic_num=1)
@@ -183,6 +194,13 @@ def add_application(request):
 
 @login_required(login_url=reverse_lazy("login"))
 def private_office(request):
+    """
+    Description of private_office
+
+    Args:
+        request (undefined):
+
+    """
     title = "Личный кабинет"
 
     username = str(request.user)
@@ -191,7 +209,6 @@ def private_office(request):
     else:
         user = get_object_or_404(User, username=username)
         group = str(user.groups.get(user=user.id))
-    print(group, type(group))
 
     if group == "customer" or group == "admin":
         return render(
@@ -214,6 +231,13 @@ def private_office(request):
 
 
 def test_card(request):
+    """
+    Description of test_card
+
+    Args:
+        request (undefined):
+
+    """
     title = "Проверка удостоверения"
 
     form = SearchForm()
@@ -224,7 +248,6 @@ def test_card(request):
     result = []
     if request.method == "GET":
         query_name = request.GET.get("welder_name", "")
-        print(query_name)
         query_brand = request.GET.get("welder_brand", "")
         query_id_card = request.GET.get("welder_card_id", "")
 
@@ -245,7 +268,6 @@ def test_card(request):
                 | Q(welder_card_id__icontains=query_id_card)
             )
 
-            print(result)
 
             return render(
                 request,
@@ -273,6 +295,13 @@ def test_card(request):
 
 @login_required(login_url=reverse_lazy("login"))
 def all_applications(request):
+    """
+    Description of all_applications
+
+    Args:
+        request (undefined):
+
+    """
     title = "Заявка"
 
     # Определение группы пользователя
@@ -288,7 +317,6 @@ def all_applications(request):
         "-aplic_date"
     )
 
-    print(result)
     return render(
         request,
         "main/all_applications.html",
@@ -300,11 +328,16 @@ def all_applications(request):
     )
 
 
-#################################################################
-
 
 @login_required(login_url=reverse_lazy("login"))
 def all_applications_give(request):
+    """
+    Description of all_applications_give
+
+    Args:
+        request (undefined):
+
+    """
     title = "Заявки поданные"
 
     # Определение группы пользователя
@@ -337,6 +370,13 @@ def all_applications_give(request):
 
 @login_required(login_url=reverse_lazy("login"))
 def all_applications_confirm(request):
+    """
+    Description of all_applications_confirm
+
+    Args:
+        request (undefined):
+
+    """
     title = "Заявки подтвержденные"
 
     # Определение группы пользователя
@@ -369,6 +409,13 @@ def all_applications_confirm(request):
 
 @login_required(login_url=reverse_lazy("login"))
 def all_applications_cancel(request):
+    """
+    Description of all_applications_cancel
+
+    Args:
+        request (undefined):
+
+    """
     title = "Заявки отмененные"
     # Определение группы пользователя
     username = str(request.user)
@@ -399,6 +446,13 @@ def all_applications_cancel(request):
 
 @login_required(login_url=reverse_lazy("login"))
 def all_applications_done(request):
+    """
+    Description of all_applications_done
+
+    Args:
+        request (undefined):
+
+    """
     title = "Заявки выполненные"
     # Определение группы пользователя
     username = str(request.user)
@@ -428,7 +482,15 @@ def all_applications_done(request):
 
 
 @login_required(login_url=reverse_lazy("login"))
-def application_update(request, pk):
+def application_update(request, pk: int):
+    """
+    Description of application_update
+
+    Args:
+        request (undefined):
+        pk (int):
+
+    """
     title = "Редактирование заявки"
     username = str(request.user)
     if username == "admin":
@@ -437,6 +499,7 @@ def application_update(request, pk):
         user = get_object_or_404(User, username=username)
         group = str(user.groups.get(user=user.id))
     result = Application.objects.filter(pk=pk).first()
+    # Список сварщиков для application_update.html
     list = []
     welder_name = result.welder_name
     welder_name = welder_name.split("| ")
@@ -502,10 +565,7 @@ def application_update(request, pk):
         "welder_passport",
         "welder_date_birth",
     ]
-    ###################
     if request.method == "POST":
-        # list_name_param = ['user_fio', 'user_telephon', 'user_email', 'org_name', 'org_adress_ur', 'org_adress_f', 'org_bank_name', 'org_bank_adress', 'org_bank_rs', 'org_bank_kod', 'org_bank_unp', 'org_bank_okpo', 'org_contakt_data', 'org_director_name', 'org_deystvie', 'sposob_svarki', 'sheet_butt_weld', 'sheet_butt_weld_steel_grade', 'sheet_butt_weld_min_thickn', 'sheet_butt_weld_max_thickn', 'sheet_butt_weld_position', 'sheet_fillet_weld', 'sheet_fillet_weld_steel_grade', 'sheet_fillet_weld_min_thickn', 'sheet_fillet_weld_max_thickn',
-        #             'sheet_fillet_weld_position', 'tube_butt_weld', 'tube_butt_weld_steel_grade', 'tube_butt_weld_min_thickn', 'tube_butt_weld_max_thickn', 'tube_butt_weld_min_diam', 'tube_butt_weld_max_diam', 'tube_butt_weld_position', 'tube_fillet_weld', 'tube_fillet_weld_steel_grade', 'tube_fillet_weld_min_thickn', 'tube_fillet_weld_max_thickn', 'tube_fillet_weld_min_diam', 'tube_fillet_weld_max_diam', 'tube_fillet_weld_position', 'gpn', 'mas', 'welder_name', 'welder_brand', 'welder_passport', 'welder_date_birth']
         list_param = []
         result = dict(request.POST)
         application = Application.objects.filter(pk=pk).first()
@@ -520,10 +580,8 @@ def application_update(request, pk):
                 param = "---"
             param = param.replace("',", "|")
             param = param.replace("'", "")
-            print(name_param, ": ", param)
             list_param.append(param)
 
-        # application.aplic_user = User.objects.get(username=username)
         application.aplic_status = Aplic_status.objects.get(aplic_num=1)
         application.user_fio = list_param[0]
         application.user_telephon = list_param[1]
@@ -582,16 +640,7 @@ def application_update(request, pk):
         application.welder_date_birth = list_param[45]
         application.save()
         return redirect("all_applications_give")
-    # return render(
-    #     request,
-    #     "main/application.html",
-    #     {
-    #         "title": title,
-    #         # "group": group,
-    #     },
-    # )
-    ########################
-    print(result.user_fio)
+    
     return render(
         request,
         "main/application_update.html",
@@ -604,10 +653,16 @@ def application_update(request, pk):
     )
 
 
-# 3
-# application_complete
 @login_required(login_url=reverse_lazy("login"))
-def application_complete_akt(request, pk):
+def application_complete_akt(request, pk: int):
+    """
+    Description of application_complete_akt
+
+    Args:
+        request (undefined):
+        pk (int):
+
+    """
     title = "Редактирование заявки"
     username = str(request.user)
     if username == "admin":
@@ -618,17 +673,6 @@ def application_complete_akt(request, pk):
     result = Application.objects.filter(pk=pk).first()
 
     list = []
-    # list_weld_main_material_plate = (result.weld_main_material_plate).split("| ")
-    # list_weld_main_material_tube = (result.weld_main_material_tube).split("| ")
-
-    # welder_brand = result.welder_brand
-    # welder_brand = welder_brand.split("| ")
-    # welder_passport = result.welder_passport
-    # welder_passport = welder_passport.split("| ")
-
-    # print(type((result.kom_pos).split("| ")))
-
-    # if type(result.kom_fio) == 'list':
     try:
         list_kom_pos = (result.kom_pos).split("| ")
         list_kom_fio = (result.kom_fio).split("| ")
@@ -657,7 +701,6 @@ def application_complete_akt(request, pk):
         "diameter", "group_of_material"
     )
 
-    ###################
     if request.method == "POST":
         list_name_param = [
             "start_date",
@@ -685,9 +728,7 @@ def application_complete_akt(request, pk):
                 param = "---"
             param = param.replace("',", "|")
             param = param.replace("'", "")
-            # print(name_param, ": ", param)
             list_param.append(param)
-        # print(list_param)
 
         application.start_date = list_param[0]
         application.end_date = list_param[1]
@@ -698,62 +739,8 @@ def application_complete_akt(request, pk):
         application.chef_kom_fio = list_param[6]
         application.kom_pos = list_param[7]
         application.kom_fio = list_param[8]
-        # application.org_bank_kod = list_param[9]
-        # application.org_bank_unp = list_param[10]
-        # application.org_bank_okpo = list_param[11]
-        # application.org_contakt_data = list_param[12]
-        # application.org_director_name = list_param[13]
-        # application.org_deystvie = list_param[14]
-        # try:
-        #     int(list_param[15])
-        # except ValueError:
-        #     list_param[15] = 0
-        # try:
-        #     application.sposob_svarki = Welding_method.objects.get(weld_des=int(list_param[15]))
-        # except Welding_method.DoesNotExist:
-        #     application.sposob_svarki = None
-        # application.sheet_butt_weld = list_param[16]
-        # application.sheet_butt_weld_steel_grade = list_param[17]
-        # application.sheet_butt_weld_min_thickn = list_param[18]
-        # application.sheet_butt_weld_max_thickn = list_param[19]
-        # application.sheet_butt_weld_position = list_param[20]
-        # application.sheet_fillet_weld = list_param[21]
-        # application.sheet_fillet_weld_steel_grade = list_param[22]
-        # application.sheet_fillet_weld_min_thickn = list_param[23]
-        # application.sheet_fillet_weld_max_thickn = list_param[24]
-        # application.sheet_fillet_weld_position = list_param[25]
-        # application.tube_butt_weld = list_param[26]
-        # application.tube_butt_weld_steel_grade = list_param[27]
-        # application.tube_butt_weld_min_thickn = list_param[28]
-        # application.tube_butt_weld_max_thickn = list_param[29]
-        # application.tube_butt_weld_min_diam = list_param[30]
-        # application.tube_butt_weld_max_diam = list_param[31]
-        # application.tube_butt_weld_position = list_param[32]
-        # application.tube_fillet_weld = list_param[33]
-        # application.tube_fillet_weld_steel_grade = list_param[34]
-        # application.tube_fillet_weld_min_thickn = list_param[35]
-        # application.tube_fillet_weld_max_thickn = list_param[36]
-        # application.tube_fillet_weld_min_diam = list_param[37]
-        # application.tube_fillet_weld_max_diam = list_param[38]
-        # application.tube_fillet_weld_position = list_param[39]
-        # application.gpn = list_param[40]
-        # application.mas = list_param[41]
-        # application.welder_name = list_param[42]
-        # application.welder_brand = list_param[43]
-        # application.welder_passport = list_param[44]
-        # application.welder_date_birth = list_param[45]
         application.save()
         return redirect("all_applications_confirm")
-    #         return render(
-    #             request,
-    #             "main/application.html",
-    #             {
-    #                 "title": title,
-    #                 # "group": group,
-    #             },
-    #         )
-    # #######################
-    print(result.user_fio)
     return render(
         request,
         "main/application_complete_akt.html",
@@ -771,18 +758,16 @@ def application_complete_akt(request, pk):
     )
 
 
-#######################################
-
 
 @login_required(login_url=reverse_lazy("login"))
-def application_del(request, pk):
+def application_del(request, pk: int):
     application = get_object_or_404(Application, pk=pk)
     application.delete()
     return redirect("all_applications_give")
 
 
 @login_required(login_url=reverse_lazy("login"))
-def application_confirm(request, pk):
+def application_confirm(request, pk: int):
     application = get_object_or_404(Application, pk=pk)
     application.aplic_status = Aplic_status.objects.get(aplic_num=2)
     application.save()
@@ -790,7 +775,7 @@ def application_confirm(request, pk):
 
 
 @login_required(login_url=reverse_lazy("login"))
-def application_give(request, pk):
+def application_give(request, pk: int):
     application = get_object_or_404(Application, pk=pk)
     application.aplic_status = Aplic_status.objects.get(aplic_num=1)
     application.save()
@@ -798,7 +783,7 @@ def application_give(request, pk):
 
 
 @login_required(login_url=reverse_lazy("login"))
-def application_done(request, pk):
+def application_done(request, pk: int):
     application = get_object_or_404(Application, pk=pk)
     application.aplic_status = Aplic_status.objects.get(aplic_num=4)
     application.save()
@@ -806,7 +791,7 @@ def application_done(request, pk):
 
 
 @login_required(login_url=reverse_lazy("login"))
-def application_cancel(request, pk):
+def application_cancel(request, pk: int):
     application = get_object_or_404(Application, pk=pk)
     application.aplic_status = Aplic_status.objects.get(aplic_num=3)
     application.save()
@@ -814,7 +799,7 @@ def application_cancel(request, pk):
 
 
 @login_required(login_url=reverse_lazy("login"))
-def pdf_application(request, pk):
+def pdf_application(request, pk: int):
     result = Application.objects.get(pk=pk).__dict__
     welder_name = (str(result["welder_name"])).split("|")
     welder_brand = (str(result["welder_brand"])).split("|")
@@ -830,10 +815,8 @@ def pdf_application(request, pk):
         default.append(welder_passport[i])
         default.append(welder_date_birth[i])
         welder_list.append(default)
-    # print(welder_list)
 
     result["welder_list"] = welder_list
-
     result["mas"] = str(result["mas"]).split("|")
     result["gpn"] = str(result["gpn"]).split("|")
 
@@ -849,8 +832,11 @@ def pdf_application(request, pk):
     result["tube_fillet_weld_position"] = str(
         result["tube_fillet_weld_position"]
     ).replace("|", ",")
-
-    # result['sposob_svarki'] =
+    result["sposob_svarki"] = (
+        str(Welding_method.objects.get(id=result["sposob_svarki_id"]).weld_des)
+        + " "
+        + str(Welding_method.objects.get(id=result["sposob_svarki_id"]).weld_short)
+    )
 
     data = {}
     data = result
@@ -860,7 +846,7 @@ def pdf_application(request, pk):
 
 
 @login_required(login_url=reverse_lazy("login"))
-def pdf_akt(request, pk):
+def pdf_akt(request, pk: int):
     result = Application.objects.get(pk=pk).__dict__
     welder_name = (str(result["welder_name"])).split("|")
     welder_brand = (str(result["welder_brand"])).split("|")
@@ -876,8 +862,6 @@ def pdf_akt(request, pk):
         default.append(welder_passport[i])
         default.append(welder_date_birth[i])
         welder_list.append(default)
-
-    # print(welder_list)
 
     result["start_date"] = datetime.datetime.strptime(
         (result["start_date"]), "%Y-%m-%d"
@@ -913,24 +897,19 @@ def pdf_akt(request, pk):
     for i in result["weld_main_material_plate"].split("| "):
         default = []
         list.append(i.split(" - "))
-        # list.append(default)
 
     result["weld_main_material_plate"] = list
-    print(type(result["weld_main_material_plate"]), "****************")
 
     list = []
     for i in result["weld_main_material_tube"].split("| "):
         default = []
         list.append(i.split(" - "))
-    # print(str(list))
     result["weld_main_material_tube"] = list
 
     data = {}
     data = result
 
-    print(result["kom_pos"].split("| "))
     result["kom_pos"] = result["kom_pos"].split("| ")
     result["kom_fio"] = result["kom_fio"].split("| ")
-
     pdf = render_to_pdf("pdf/pdf_akt.html", data)
     return HttpResponse(pdf, content_type="application/pdf")

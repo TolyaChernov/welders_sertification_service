@@ -8,7 +8,7 @@ from xhtml2pdf import pisa
 from ptm import settings
 
 
-def render_to_pdf(url_template, contexto={}):
+def render_to_pdf(url_template: str, contexto: dict ={}):
     template = get_template(url_template)
     html = template.render(contexto)
     result = BytesIO()
@@ -23,7 +23,15 @@ def render_to_pdf(url_template, contexto={}):
     return None
 
 
-def fetch_pdf_resources(uri, rel):
+def fetch_pdf_resources(uri: str, rel: str):
+    """
+    Description of fetch_pdf_resources
+
+    Args:
+        uri (str):
+        rel (str):
+
+    """
     if uri.find(settings.MEDIA_URL) != -1:
         path = os.path.join(
             settings.MEDIA_ROOT, uri.replace(
@@ -35,5 +43,4 @@ def fetch_pdf_resources(uri, rel):
 
     else:
         path = None
-    print(path, "+++++++++++++++")
     return path
