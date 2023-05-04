@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %} 
+{% block content %}
+
+
+{% comment %} <form action="{% url 'search' %}" method="GET">
+  {{ form_search.as_p }}
+  <p>{{ message }}</p>
+  <input type="submit" value="Найти" />
+</form> {% endcomment %}
+
+
+
+{% endblock %}
+
+<!-- <div class="tabs">
+        <div class="tabs-btns">
+            <div class="tabs-btn" data-tab=".tab-1">
+                <a href="?sort=name">Имя (возр)</a>
+            </div>
+            <div class="tabs-btn" data-tab=".tab-1">
+                <a href="?sort=-name">Имя (убыв)</a>
+            </div>
+            <div class="tabs-btn" data-tab=".tab-1">
+                <a href="?sort=price">Цена (возр)</a>
+            </div>
+            <div class="tabs-btn" data-tab=".tab-1">
+                <a href="?sort=-price">Цена (убыв)</a>
+            </div>
+        </div>
+    </div>
+</div> -->

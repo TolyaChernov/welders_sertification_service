@@ -1,0 +1,45 @@
+{% extends 'main/private_office_s1.html' %} 
+{% block content_1 %}
+
+<style>
+  div {
+    width: 650px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 150px;
+  }
+</style>
+
+<br /><br />
+
+
+<h2><p class="center">Заявки выполненные</p></h2>
+
+{% if group == "customer" %} 
+{% for i in result %}
+<p>
+  Заявка №{{ i.id }} от {{ i.aplic_date }} --
+  <a href="{% url 'pdf_application' pk=i.id %}">Заявка(PDF)</a> --
+</p>
+  {% endfor %} 
+  {% endif %} 
+
+  {% if group == "engineer" %} 
+  {% for i in result %}
+<p>
+  Заявка №{{ i.id }} от {{ i.aplic_date }} ({{i.user_fio}}) --
+  <a href="{% url 'application_confirm' pk=i.id %}">Подтвердить</a> --
+  <a href="{% url 'application_cancel' pk=i.id %}">Отменить</a> --
+  <a href="{% url 'pdf_application' pk=i.id %}">Заявка(PDF)</a> 
+</p>
+  {% endfor %} 
+  {% endif %}
+
+
+
+
+
+
+{% endblock %}

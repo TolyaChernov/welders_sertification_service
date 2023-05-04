@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<html lang="ru">
+  <head>
+    <link
+      type="text/css"
+      href="{% static 'main/css/styles.css' %}"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>{{ title }}</title>
+  </head>
+
+  <body>
+    <div class="wrap_total">
+      {% if user.is_authenticated %}
+      <ul class="header-menu">
+        <li><a href="{% url 'index' %}">Главная</a></li>
+        <li><a href="{% url 'test_card' %}">Проверить удостоверение</a></li>
+        <li><a href="{% url 'private_office' %}">Кабинет</a></li>
+        <li><a href={% url 'change' %}>СМЕНИТЬ ПАРОЛЬ</a></li>
+        <li><a href={% url 'logout' %}>ВЫЙТИ</a><li>
+      </ul>
+
+      {% else %}
+      <ul class="header-menu">
+        <li><a href="{% url 'index' %}">Главная</a></li>
+        <li><a href="{% url 'test_card' %}">Проверить удостоверение</a></li>
+        <li><a href={% url 'register' %}>Регистрация</a></li>
+        <li><a href={% url 'login' %}>Авторизация</a></li>
+      </ul>
+      {% endif %} 
+
+      {% comment %} <p>Имя пользователя: {{ user }}</p>
+      <p>Группа пользователя: {{ group }}</p> {% endcomment %}
+      {% block content %} {% endblock %}
+    </div>
+  </body>
+</html>
+
+

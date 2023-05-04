@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Title</title>
+        <style>
+
+            
+            @font-face { 
+                font-family: Arial; 
+                src: url(/static/fonts/arial.ttf); 
+            }
+
+
+
+             @font-face { 
+                font-family: Arial; 
+                src: url("/home/user/fonts/arial.ttf") format("truetype"); 
+            }
+
+
+            body{
+                font-size: 12px;
+                font-family: Arial; 
+                padding: 2px;
+            }
+
+            p{
+                margin-top: 1px;
+                margin-bottom: 1px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        
+    
+
+
+
+
+        <table style="border-collapse: collapse; width: 100%;" border="1">
+            <tbody>
+            <tr>
+            <td style="width: 10%;"></td>
+            <td style="width: 20%; text-align: center; "><p style="font-size: 18px;">ООО "СГС"</p></td>
+            <td style="width: 50%; text-align: center;"><p style="font-size: 16px;">Заявка №: {{id}}</p>на проведение аттестации сварщиков</td>
+            <td style="width: 20%; text-align: center;">{{aplic_date|date}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+
+        <table style="border-collapse: collapse; width: 100%;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 50%; text-align: right;">Аттестуемая организация:</td>
+            <td style="width: 50%; ">{{org_name}}</td>
+            </tr>
+            <tr>
+            <td style="width: 50%; text-align: right;">Способ сварки:</td>
+            <td style="width: 50%;">{{sposob_svarki}} </td>
+            </tr>
+            </tbody>
+            </table>
+            <br>
+            <table style="border-collapse: collapse; width: 100%;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 100%; text-align: center;">Перечень сварщиков</td>
+            </tr>
+            </tbody>
+            </table>
+         
+            <table style="border-collapse: collapse; width: 100%;" border="1">
+            <tbody>
+            <tr>
+            <td style="width: 10%; text-align: center;">№</td>
+            <td style="width: 30%; text-align: center;">Ф.И.О.</td>
+            <td style="width: 10%; text-align: center;">Клеймо</td>
+            <td style="width: 30%; text-align: center;">Серия и номер паспорта</td>
+            <td style="width: 20%; text-align: center;">Дата рождения</td>
+            </tr>
+
+                    
+            {% for i in welder_list %}
+            <tr>
+            <td style="width: 10%; text-align: left; text-align: center;">{{ i.0 }}</td>
+            <td style="width: 30%; text-align: left;">{{ i.1 }}</td>
+            <td style="width: 10%; text-align: left; text-align: center;">{{ i.2 }}</td>
+            <td style="width: 30%; text-align: center;">{{ i.3 }}</td>
+            <td style="width: 20%; text-align: center;">{{ i.4 }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            <br>
+            
+        <table style="border-collapse: collapse; width: 100%;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 100%;">
+            <h4 style="text-align: center;">Потенциально опасные объекты в области промышленной безопасности и/или эксплуатируемые на них технические устройства, подведомственные Госпромнадзору МЧС РБ:</h4>
+            </td>
+            </tr>
+            {% for i in gpn %}
+            <tr>
+            <td style="width: 100%;  text-align: left;">- {{i}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <br>
+
+        <table style="border-collapse: collapse; width: 100%;" border="0">
+            <tbody>
+            <tr >
+            <td style="width: 100%; ">
+            <h4 style="text-align: center;">Объекты, подведомственные Министерству архитектуры и строительства РБ:</h4>
+            </td>
+            </tr>
+            {% for i in mas %}
+            <tr >
+            <td style="width: 100%;  text-align: left;">- {{i}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+
+        <table style="border-collapse: collapse; width: 100%; " border="0">
+            <tbody>
+            <tr >
+            <td style="width: 100%;  text-align: center;"><strong>Требуемая область распространения</strong></td>
+            </tr>
+            </tbody>
+        </table>
+        
+        <table style="border-collapse: collapse; width: 100%; " border="1">
+            <tbody>
+            <tr >
+            <td style="width: 20%;  text-align: center;">Заготовка</td>
+            <td style="width: 20%;  text-align: center;">Диаметр</td>
+            <td style="width: 20%;  text-align: center;">Толщина</td>
+            <td style="width: 20%;  text-align: center;">Пространственное положение</td>
+            <td style="width: 20%;  text-align: center;">Материал</td>
+            </tr>
+            <tr >
+            <td style="width: 20%;  text-align: left;">Трубы</td>
+            <td style="width: 20%; ">
+            <p style="text-align: left;">от {{tube_butt_weld_min_diam}} до {{tube_butt_weld_max_diam}}</p>
+            <p style="text-align: left;">от {{tube_fillet_weld_min_diam}} до {{tube_fillet_weld_max_diam}}</p>
+            </td>
+            <td style="width: 20%; ">
+            <p style="text-align: left;">от {{tube_butt_weld_min_thickn}} до {{tube_butt_weld_max_thickn}}</p>
+            <p style="text-align: left;">от {{tube_fillet_weld_min_thickn}} до {{tube_fillet_weld_max_thickn}}</p>
+            </td>
+            <td style="width: 20%; ">
+            <p style="text-align: left;">BW: {{tube_butt_weld_position}}</p>
+            <p style="text-align: left;">FW: {{tube_fillet_weld_position}}</p>
+            </td>
+            <td style="width: 20%; text-align: left;">
+                <p style="text-align: left;">{{tube_butt_weld_steel_grade}}</p>
+                <p style="text-align: left;">{{tube_fillet_weld_steel_grade}}</p>
+            </td>
+            </tr>
+            <tr>
+            <td style="width: 20%;  text-align: left;">Пластины</td>
+            <td style="width: 20%;  text-align: left;">---</td>
+            <td style="width: 20%;">
+            <p style="text-align: left;">от {{sheet_butt_weld_min_thickn}}мм  до  {{sheet_butt_weld_max_thickn}}мм</p>
+            <p style="text-align: left;">от {{sheet_fillet_weld_min_thickn}}мм до {{sheet_fillet_weld_max_thickn}}мм</p>
+            </td>
+            <td style="width: 20%;">
+            <p style="text-align: left;">BW: {{sheet_butt_weld_position}}</p>
+            <p style="text-align: left;">FW: {{sheet_fillet_weld_position}}</p>
+            </td>
+            <td style="width: 20%; text-align: left;">
+                <p style="text-align: left;">{{sheet_butt_weld_steel_grade}}</p>
+                <p style="text-align: left;">{{sheet_fillet_weld_steel_grade}}</p>
+            </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+        <table style="width: 99.9975%;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 26.2766%; ">Руководитель предприятия</td>
+            <td style="width: 14.4382%;"></td>
+            <td style="width: 25.9517%;  text-align: center;">__________________</td>
+            <td style="width: 33.3333%;  text-align: center;">{{org_director_name}}</td>
+            </tr>
+            <tr >
+            <td style="width: 26.2766%; "></td>
+            <td style="width: 14.4382%; text-align: center;">М.П.</td>
+            <td style="width: 25.9517%;  text-align: center;">(подпись)</td>
+            <td style="width: 33.3333%;  text-align: center;">(Ф.И.О.)</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <table style="border-collapse: collapse; width: 100%;" border="0">
+            <tbody>
+            <tr>
+            <td style="width: 25.6731%; ">Ответственный</td>
+            <td style="width: 45.8681%; text-align: center; ">{{user_fio}}</td>
+            <td style="width: 28.4587%; text-align: center; ">{{user_telephon}}</td>
+            </tr>
+            <tr style="">
+            <td style="width: 25.6731%; "></td>
+            <td style="width: 45.8681%; text-align: center; ">(Ф.И.О.)</td>
+            <td style="width: 28.4587%; text-align: center; ">(контактный телефон)</td>
+            </tr>
+            </tbody>
+            </table>
+            <p></p>
+
+
+
+    </div>
+
+
+
+
+
+    </body>
+</html>

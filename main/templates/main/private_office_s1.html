@@ -1,0 +1,77 @@
+{% extends 'main/base.html' %} 
+{% block content %}
+
+<style>
+    table.menu_1{
+        width: 100%;
+        border-collapse:collapse;
+        border-spacing:0;
+        height: auto;
+    }
+    table.menu_1,table.menu_1 td, table.menu_1 th {
+        border: 0px solid #595959;
+    }
+    table.menu_1 td,table.menu_1 th {
+        padding: 3px;
+        width: 30px;
+        height: 35px;
+    }
+    table.menu_1 th {
+        background: #347c99; 
+        color: #fff; 
+        font-weight: normal;
+    }
+
+</style>
+
+{{group}}
+
+
+<p align='center' >ЛИЧНЫЙ КАБИНЕТ ПОЛЬЗОВАТЕЛЯ: {{ user }}
+<table class="menu_1">
+	<tbody>
+		<tr>
+            {% if group == "customer" %}
+			<td><a href="{% url 'add_application' %}">ПОДАТЬ ЗАЯВКУ</a></td>
+            {% endif %}
+
+            <td><a href="{% url 'all_applications_give' %}">ПОДАННЫЕ</a></td>
+			<td><a href="{% url 'all_applications_confirm' %}">ПОДТВЕРЖДЕННЫЕ</a></td>
+            <td><a href="{% url 'all_applications_done' %}">ВЫПОЛНЕННЫЕ</a></td>
+            <td><a href="{% url 'all_applications_cancel' %}">ОТМЕНЕННЫЕ</a></td>
+
+
+            {% if group == "engineer" %}
+            <td><a href="№">МАТЕРИАЛЫ</a></td>
+            {% endif %}
+
+			
+			
+		</tr>
+	</tbody>
+</table>
+
+
+{% block content_1 %}
+
+{% endblock %}
+
+{% endblock %}
+
+<!-- <div class="tabs">
+        <div class="tabs-btns">
+            <div class="tabs-btn" data-tab=".tab-1">
+                <a href="?sort=name">Имя (возр)</a>
+            </div>
+            <div class="tabs-btn" data-tab=".tab-1">
+                <a href="?sort=-name">Имя (убыв)</a>
+            </div>
+            <div class="tabs-btn" data-tab=".tab-1">
+                <a href="?sort=price">Цена (возр)</a>
+            </div>
+            <div class="tabs-btn" data-tab=".tab-1">
+                <a href="?sort=-price">Цена (убыв)</a>
+            </div>
+        </div>
+    </div>
+</div> -->

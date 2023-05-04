@@ -1,0 +1,1066 @@
+
+
+
+{% extends 'main/private_office_s1.html' %} 
+{% block content_1 %}
+
+
+
+
+
+
+    <style>
+        body {
+            font-family: "Arial";
+            font-size: 18px;
+            border: 0px solid;
+            width: 920px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+            line-height: 18px;
+            
+        }
+
+        div {
+            border: 0px solid;
+            padding: 10px;
+        }
+
+        input[type=text],
+        textarea {
+            width: 450px;
+            padding: 10;
+            margin: 10;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+
+        /* Кнопки стиля */
+        .btn {
+            background-color: rgb(255, 255, 255);
+            /* Синий фон */
+            border: none;
+            /* Удалить границы */
+            color: rgb(182, 2, 2);
+            /* Белый текст */
+            padding: 1px 5px;
+            /* Немного отступов */
+            font-size: 18px;
+            /* Установите размер шрифта */
+            cursor: pointer;
+            /* Указатель мыши при наведении */
+            border-radius: 5px;
+        }
+
+        /* Более темный фон при наведении курсора мыши */
+        .btn:hover {
+            background-color: rgb(197, 83, 83);
+            color: rgb(255, 255, 255);
+        }
+
+        .btn:active {
+            background-color: rgb(142, 10, 10);
+            color: rgb(255, 255, 255);
+        }
+
+        fieldset {
+            border: 1px solid rgb(36, 37, 36);
+        }
+
+        label {
+            vertical-align: top;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+
+        .button {
+            /* Сбрасываем дефолтные стили */
+            border: none;
+            outline: none;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 12px;
+            /* Можно также использовать любые встроенные и кастомные шрифты, например, отсюда  */
+            font-family: Roboto, Verdana, Tahoma, sans;
+            /* Тут можно поэкспериментировать */
+            padding: 8px 8px;
+            border-radius: 8px;
+            color: rgb(0, 0, 0);
+        }
+
+        .button i {
+            margin-right: 3px;
+        }
+
+        .button+.button {
+            margin-left: 6px;
+        }
+
+        .button.blue {
+            background: #57ec63;
+            color: rgb(0, 0, 0);
+        }
+
+        .button.purple {
+            background: #9b59b6;
+        }
+
+
+        .button:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover.blue {
+            background: #4ec958;
+            color: rgb(0, 0, 0);
+        }
+
+        .button:hover.purple {
+            background: #a66bbe;
+        }
+
+        .button:active {
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:active.blue {
+            background: #40ad49;
+            color: rgb(15, 14, 109);
+        }
+
+        .button:active.purple {
+            background: #8f4bab;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .checkbox {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            margin: 10px 0 0 20px;
+        }
+
+        .checkbox+label {
+            position: relative;
+            padding: 0 0 0 45px;
+            cursor: pointer;
+        }
+
+        .checkbox+label:before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 40px;
+            height: 18px;
+            border-radius: 8px;
+            background: #CDD1DA;
+            box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2);
+            transition: .3s;
+        }
+
+        .checkbox+label:after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #FFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+            transition: .2s;
+        }
+
+        .checkbox:checked+label:before {
+            background: #57ec63;
+        }
+
+        .checkbox:checked+label:after {
+            left: 24px;
+        }
+
+        .checkbox:focus+label:before {
+            box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2), 0 0 0 3px rgba(255, 255, 255, 0.7);
+        }
+    </style>
+
+
+
+
+
+    <script type="text/javascript">
+
+        function showHide(element_id) {
+            //Если элемент с id-шником element_id существует
+            if (document.getElementById(element_id)) {
+                //Записываем ссылку на элемент в переменную obj
+                var obj = document.getElementById(element_id);
+                //Если css-свойство display не block, то:
+                if (obj.style.display != "block") {
+                    obj.style.display = "block"; //Показываем элемент
+                }
+                else obj.style.display = "none"; //Скрываем элемент
+                {
+                    obj.reset()
+                }
+            }
+            //Если элемент с id-шником element_id не найден, то выводим сообщение
+            else alert("Элемент с id: " + element_id + " не найден!");
+        }
+
+    </script>
+
+
+
+    {% comment %} <form class="right" action='' method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form> {% endcomment %}
+
+
+
+    <br>
+    <br>
+    <h2><p class='center'>Заявка на аттестацию сварщика</p></h2>
+    <p class='center'>* обязательные поля для заполнения</p>
+    <br>
+    <div class="body">
+        <form id="application" method="POST" action="" autocomplete="on">
+            {% csrf_token %}
+            <fieldset>
+                <legend>
+                    <h4>Контактные данные ответственного</h4>
+                </legend>
+
+                <p class="right">
+                    &ensp;
+                    <input id="user_name1" type="hidden">
+                </p>
+
+
+                <p class="right">
+                    <label for="user_fio">Ф.И.О.*:</label>
+                    &ensp;
+                    <input name="user_fio" type="text" placeholder="Иванов Иван Иванович">
+                </p>
+
+                <p class="right">
+                    <label for="user_telephon">Телефон*:</label>
+                    &ensp;
+                    <input name="user_telephon" type="text" placeholder="+375-00-000-00-00">
+                </p>
+
+                <p class="right">
+                    <label for="user_email">Email*:</label>
+                    &ensp;
+                    <input name="user_email" type="text" placeholder="mail@mail.by">
+                </p>
+            </fieldset>
+
+
+
+            <fieldset>
+                <legend>
+                    <h4>Реквизиты предприятия</h4>
+                </legend>
+                <p class="right">
+                    <label for="org_name">Наименование организации*:</label>
+                    &ensp;
+                    <input name="org_name" type="text" size="71" placeholder='ОАО "Моя компания"'>
+                </p>
+
+                <p class="right">
+                    <label for="org_adress_ur">Адрес организации (юридический)*:</label>
+                    &ensp;
+                    <textarea rows="3" cols="64" name="org_adress_ur"></textarea>
+                </p>
+
+                <p class="right">
+                    <label for="org_adress_f">Адрес организации (фактический):</label>
+                    &ensp;
+                    <textarea rows="3" cols="64" name="org_adress_f"></textarea>
+                </p>
+
+                <p class="right">
+                    <label for="org_bank_name">Банк*:</label>
+                    &ensp;
+                    <input name="org_bank_name" type="text" size="72">
+                </p>
+
+                <p class="right">
+                    <label for="org_bank_adress">Адрес банка*:</label>
+                    &ensp;
+                    <textarea rows="3" cols="65" name="org_bank_adress"></textarea>
+                </p>
+
+                <p class="right">
+                    <label for="org_bank_rs">Рассчетный счет*:</label>
+                    &ensp;
+                    <input name="org_bank_rs" type="text" size="72">
+                </p>
+
+                <p class="right">
+                    <label for="org_bank_kod"> Код банка*:</label>
+                    &ensp;
+                    <input name="org_bank_kod" type="text" size="72">
+                </p>
+
+                <p class="right">
+                    <label for="org_bank_unp">УНП*:</label>
+                    &ensp;
+                    <input name="org_bank_unp" type="text" size="72">
+                </p>
+
+                <p class="right">
+                    <label for="org_bank_okpo"> ОКПО*:</label>
+                    &ensp;
+                    <input name="org_bank_okpo" type="text" size="72">
+                </p>
+
+                <p class="right">
+                    <label for="org_contakt_data">Контактные данные (тел., факс, email)*:</label>
+                    &ensp;
+                    <textarea rows="1" cols="65" name="org_contakt_data"></textarea>
+                </p>
+
+                <p class="right">
+                    <label for="org_director_name">Ф.И.О. руководителя*</label>
+                    &ensp;
+                    <input name="org_director_name" type="text" size="72">
+                </p>
+
+                <p class="right">
+                    <label for="org_deystvie">действует на основании:*</label>
+                    &ensp;
+                    <input name="org_deystvie" type="text" size="72">
+                </p>
+
+            </fieldset>
+
+            <br>
+
+            <fieldset>
+                <legend>
+                    <h4>Способ сварки</h4>
+                </legend>
+
+
+
+                <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
+                    <tr>
+                        <td>Способ сварки*: </td>
+                        <td><select name="sposob_svarki">
+                                <option value=""></option>
+                                <option value='111'>111 / SMAW / ручная дуговая сварка плавящимся покрытым электродом
+                                </option>
+                                <option value="121">121 / SAW / автоматическая дуговая сварка под слоем флюса</option>
+                                <option value="135">135 / MAG / механизированная дуговая сварка в среде активных газов
+                                    сплошной проволокой</option>
+                                <option value="136">136 / MAG / механизированная дуговая сварка в среде активных газов
+                                    порошковой проволокой</option>
+                                <option value="141">141 / TIG / ручная дуговая сварка неплавящимся вольфрамовым
+                                    электродом</option>
+                        </td>
+
+
+                    </tr>
+
+                </table>
+
+
+
+            </fieldset>
+
+
+
+
+
+            <fieldset>
+                <legend>
+                    <h4>Область распространения</h4>
+                </legend>
+
+                <input type="checkbox" class="checkbox" id="sheet_butt_weld" value="1"/>
+                <label for="list1" onclick="showHide('list')">Листы</label>
+                <br><br>
+                <!-- <input type="checkbox" name="opt1" value="true" onclick="showHide('list')">Лист<br> -->
+                <fieldset id="list" style="display: none">
+                    <!-- <legend>Лист</legend> -->
+
+                    <input type="checkbox" class="checkbox" id="lists" name="sheet_butt_weld" value="1"/>
+                    <label for="lists" onclick="showHide('list_s')">Стыковые швы</label>
+                    <br>
+                    <!-- <input type="checkbox" name="opt1" value="true" onclick="showHide('list_s')">Стыковой шов<br> -->
+                    <fieldset id="list_s" style="display: none">
+                        <!-- <legend>Стыковой шов</legend> -->
+
+                        {% comment %} <a href="#" onclick="return addsteel();"><button class="button blue"><i class="fa fa-plus"></i>
+                                Добавить</button></a> {% endcomment %}
+
+                        <table id="list_ctyk_steel" style="vertical-align: top;">
+                            <tr>
+                                <td valign="top">Марка стали*: </td>
+                                <td><textarea rows="2" cols="65" name="sheet_butt_weld_steel_grade" type="text" style="width: 250px;"></textarea></td>
+
+                                {% comment %} <td valign="top"><a href="#" onclick="return rmline(this);"><button class="btn"><i
+                                                class="fa fa-close"></i></button></td> {% endcomment %}
+                            </tr>
+
+                        </table>
+
+
+                        <!-- <label for="steel_1">Марки сталей*</label>
+                        <input name="steel_1" type="text" size="50" style="width: 200px;"> -->
+
+                        <br>
+                        <br>
+
+                        <label for="steel_1">Толщина, мм</label>
+                        <input name="sheet_butt_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;">
+                        <input name="sheet_butt_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
+                            style="width: 50px;">
+                        <br>
+                        <br>
+
+                        <label>Пространственные положения</label><br>
+                        <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pa" value="PA" title="нижнее положение"><label
+                            for="l_s_pa" title="нижнее положение">PA</label>
+                        <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pc" value="PC"
+                            title="горизонтальное положение"><label for="l_s_pc"
+                            title="горизонтальное положение">PC</label>
+                        <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pf" value="PF"
+                            title="вертикальное положение, сварка снизу вверх"><label for="l_s_pf"
+                            title="вертикальное положение, сварка снизу вверх">PF</label>
+                        <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pg" value="PG"
+                            title="вертикальное положение, сварка сверху вниз"><label for="l_s_pg"
+                            title="вертикальное положение, сварка сверху вниз">PG</label>
+                        <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pe" value="PE" title="потолочное положение"><label
+                            for="l_s_pe" title="потолочное положение">PE</label>
+
+                    </fieldset>
+
+                    <br>
+
+
+                    <input type="checkbox" class="checkbox" id="listu" name="sheet_fillet_weld" value="1"/>
+                    <label for="listu" onclick="showHide('list_u')">Угловые швы</label>
+
+                    <!-- <input type="checkbox" name="opt1" value="true" onclick="showHide('list_u')">Угловой шов<br> -->
+                    <fieldset id="list_u" style="display: none">
+                        <!-- <legend>Уголовой шов</legend> -->
+
+
+                        {% comment %} <a href="#" onclick="return addstee_2();"><button class="button blue"><i class="fa fa-plus"></i>
+                                Добавить</button></a> {% endcomment %}
+
+                        <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
+                            <tr>
+                                <td valign="top">Марка стали*: </td>
+                                <td><textarea rows="2" cols="65" name="sheet_fillet_weld_steel_grade" type="text" style="width: 250px;"></textarea></td>
+
+                                {% comment %} <td valign="top"><a href="#" onclick="return rmline(this);"><button class="btn"><i
+                                                class="fa fa-close"></i></button></td> {% endcomment %}
+                            </tr>
+
+                        </table>
+
+
+                        <!-- <label for="steel_1">Марки сталей*</label>
+                        <input name="steel_1" type="text" size="50" style="width: 200px;"> -->
+                        <br><br>
+                        <label for="steel_1">Толщина, мм</label>
+                        <input name="sheet_fillet_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;">
+                        <input name="sheet_fillet_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
+                            style="width: 50px;">
+
+                        <br>
+                        <br>
+
+                        <label>Пространственные положения</label><br>
+                        <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pa" value="PA" title="нижнее положение"><label
+                            for="l_u_pa" title="нижнее положение">PA</label>
+                        <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pb" value="PB"
+                            title="горизонтально-вертикальное положение"><label for="l_u_pb"
+                            title="горизонтально-вертикальное положение">PB</label>
+                        <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pc" value="PC"
+                            title="горизонтальное положение"><label for="l_u_pc"
+                            title="горизонтальное положение">PC</label>
+                        <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pf" value="PF"
+                            title="вертикальное положение, сварка снизу вверх"><label for="l_u_pf"
+                            title="вертикальное положение, сварка снизу вверх">PF</label>
+                        <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pg" value="PG"
+                            title="вертикальное положение, сварка сверху вниз"><label for="l_u_pg"
+                            title="вертикальное положение, сварка сверху вниз">PG</label>
+                        <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pd" value="PD"
+                            title="горизонтально-потолочное положение"><label for="l_u_pd"
+                            title="горизонтально-потолочное положение">PD</label>
+                        <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pe" value="PE" title="потолочное положение"><label
+                            for="l_u_pe" title="потолочное положение">PE</label>
+
+                    </fieldset>
+
+                </fieldset>
+
+                <br>
+
+
+
+
+                <input type="checkbox" class="checkbox" id="tube1" />
+                <label for="tube1" onclick="showHide('tube')">Трубы</label>
+                <br><br>
+
+                <!-- <input type="checkbox" name="opt1" value="a2" onclick="showHide('tube')">Труба<br> -->
+                <fieldset id="tube" style="display: none">
+                    <!-- <legend>Труба</legend> -->
+
+                    <input type="checkbox" class="checkbox" id="tubes" name="tube_butt_weld" value="1" />
+                    <label for="tubes" onclick="showHide('tube_s')">Стыковые швы</label>
+
+
+                    <!-- <input type="checkbox" name="opt1" value="true" onclick="showHide('tube_s')">Стыковой шов<br> -->
+                    <fieldset id="tube_s" style="display: none">
+                        <!-- <legend>Стыковой шов</legend> -->
+                        {% comment %} <a href="#" onclick="return addstee_2();"><button class="button blue"><i class="fa fa-plus"></i>
+                            Добавить</button></a> {% endcomment %}
+
+                    <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
+                        <tr>
+                            <td valign="top">Марка стали*: </td>
+                            <td><textarea rows="2" cols="65" name="tube_butt_weld_steel_grade" type="text" style="width: 250px;"></textarea></td>
+
+                            {% comment %} <td valign="top"><a href="#" onclick="return rmline(this);"><button class="btn"><i
+                                            class="fa fa-close"></i></button></td> {% endcomment %}
+                        </tr>
+
+                    </table>
+                        <br><br>
+                        <label for="steel_1">Толщина, мм</label>
+                        <input name="tube_butt_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;">
+                        <input name="tube_butt_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
+                            style="width: 50px;">
+
+                        <br><br>
+
+                        <label for="steel_1">Диаметр, мм</label>
+                        <input name="tube_butt_weld_min_diam" type="number" size="1" min="1" placeholder="от" style="width: 50px;">
+                        <input name="tube_butt_weld_max_diam" type="number" size="1" max="1000" placeholder="до"
+                            style="width: 50px;">
+
+                        <br><br>
+
+                        <label>Пространственные положения</label><br>
+                        <input type="checkbox" name="tube_butt_weld_position" id="t_s_pa" value="PA" title="нижнее положение"><label
+                            for="t_s_pa" title="нижнее положение">PA</label>
+                        <input type="checkbox" name="tube_butt_weld_position" id="t_s_pc" value="PC"
+                            title="горизонтальное положение"><label for="t_s_pc"
+                            title="горизонтальное положение">PC</label>
+                        <input type="checkbox" name="tube_butt_weld_position" id="t_s_ph" value="PH"
+                            title="положение вертикальное, сварка снизу вверх (труба неповоротная)"><label for="t_s_ph"
+                            title="положение вертикальное, сварка снизу вверх (труба неповоротная)">PH</label>
+                        <input type="checkbox" name="tube_butt_weld_position" id="t_s_pj" value="PJ"
+                            title="положение вертикальное, сварка сверху вниз (труба неповоротная)"><label for="t_s_pj"
+                            title="положение вертикальное, сварка сверху вниз (труба неповоротная)">PJ</label>
+                        <input type="checkbox" name="tube_butt_weld_position" id="t_s_pe" value="PE" title="потолочное положение"><label
+                            for="t_s_pe">PE</label>
+                        <input type="checkbox" name="tube_butt_weld_position" id="t_s_hl045" value="H-L045"
+                            title="сварка снизу вверх в наклонном положении под 45° (труба неповоротная)"><label
+                            for="t_s_hl045"
+                            title="сварка снизу вверх в наклонном положении под 45° (труба неповоротная)">H-L045</label>
+                        <input type="checkbox" name="tube_butt_weld_position" id="t_s_jl045" value="J-L045"
+                            title="сварка сверху вниз в наклонном положении под 45° (труба неповоротная)"><label
+                            for="t_s_jl045"
+                            title="сварка сверху вниз в наклонном положении под 45° (труба неповоротная)">J-L045</label>
+
+                    </fieldset>
+
+                    <br>
+                    <br>
+
+                    <input type="checkbox" class="checkbox" id="tubeu" name="tube_fillet_weld" value="1" />
+                    <label for="tubeu" onclick="showHide('tube_u')">Угловые швы</label>
+
+                    <!-- <input type="checkbox" name="opt1" value="true" onclick="showHide('tube_u')">Угловой шов<br> -->
+                    <fieldset id="tube_u" style="display: none">
+                        <!-- <legend>Уголовой шов</legend> -->
+                        <label for="steel_1">Марки сталей*</label>
+                        <textarea rows="2" cols="65" name="tube_fillet_weld_steel_grade" type="text" style="width: 250px;"></textarea>
+                        <br><br>
+                        <label for="steel_1">Толщина, мм</label>
+                        <input name="tube_fillet_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;">
+                        <input name="tube_fillet_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
+                            style="width: 50px;">
+                        <br><br>
+                        <label for="steel_1">Диаметр, мм</label>
+                        <input name="tube_fillet_weld_min_diam" type="number" size="1" min="1" placeholder="от" style="width: 50px;">
+                        <input name="tube_fillet_weld_max_diam" type="number" size="1" max="1000" placeholder="до"
+                            style="width: 50px;">
+                        <br><br>
+                        <label>Пространственные положения</label><br>
+                        <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pa" value="PA" title="нижнее положение"><label
+                            for="t_u_pa" title="нижнее положение">PA</label>
+                        <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pb" value="PB"><label for="t_u_pb"
+                            title="горизонтально-вертикальное положение">PB</label>
+                        <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pc" value="PC"
+                            title="горизонтальное положение"><label for="t_u_pc"
+                            title="горизонтальное положение">PC</label>
+                        <input type="checkbox" name="tube_fillet_weld_position" id="t_u_ph" value="PH"
+                            title="положение вертикальное, сварка снизу вверх (труба неповоротная)"><label for="t_u_ph"
+                            title="положение вертикальное, сварка снизу вверх (труба неповоротная)">PH</label>
+                        <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pj" value="PJ"
+                            title="положение вертикальное, сварка сверху вниз (труба неповоротная)"><label for="t_u_pj"
+                            title="положение вертикальное, сварка сверху вниз (труба неповоротная)">PJ</label>
+                        <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pd" value="PD"
+                            title="горизонтально-потолочное положение"><label for="t_u_pd"
+                            title="горизонтально-потолочное положение">PD</label>
+
+                    </fieldset>
+                </fieldset>
+            </fieldset>
+
+
+
+
+
+
+
+
+
+            <br>
+            <fieldset>
+                <legend>
+                    <h4>Потенциально опасные объекты в области промышленной безопасности и/или эксплуатируемые на них
+                        технические устройства, подведомственные Госпромнадзору МЧС РБ</h4>
+                </legend>
+
+                <input id="obj_1_1" type="checkbox" name="gpn" value="Объекты и производства с химическими, физико-химическими, физическими процессами, на которых возможно образование взрывоопасных сред, имеющие в своём составе взрывоопасные технологические блоки с относительным энергетическим потенциалом более 9 (ПОПБЭТТ, ТКП 45-3.05-167-2009, ТКП 45-3.05-166-2009, ТКП 45-5.04-172-2010)" title="подсказка положения">
+                <label for="obj_1_1">Объекты и производства с химическими, физико-химическими, физическими процессами,
+                    на которых возможно образование взрывоопасных сред, имеющие в своём составе взрывоопасные
+                    технологические блоки с относительным энергетическим потенциалом более 9 (ПОПБЭТТ, ТКП
+                    45-3.05-167-2009, ТКП 45-3.05-166-2009, ТКП 45-5.04-172-2010)</label><br>
+                <br>
+                <input id="obj_1_2" type="checkbox" name="gpn" value="Аммиачно-холодильные установки с содержанием аммиака от 1000 до 3000 килограммов (ПОПБАХУСЖА)" title="подсказка положения">
+                <label for="obj_1_2">Аммиачно-холодильные установки с содержанием аммиака от 1000 до 3000 килограммов
+                    (ПОПБАХУСЖА)</label><br>
+                <br>
+                <input id="obj_1_3" type="checkbox" name="gpn" value="Элеваторы, склады силосного типа, объекты мукомольного крупяного и комбикормовог производства с минимальной проектной мощностью от 100 т/сутки, на которых осуществляется переработка зерна и комбикормового сырья , а также элеваторы, склады силосного типа, объекты мукомольного, крупяного и комбикормового производства, вместимостью от 500 тонн, на которых осуществляется хранение зерна, продуктов его переработки, комбикормового сырья, в процессе эксплуатации которых образуются взрывоопасные пылевоздушные смеси с концентрационным пределом взрываемости ниже 65 г/м3, способные самовозгораться от источника зажигания и самостоятельно гореть после его удаления (ТКП 45-3.05-166-2009)" title="подсказка положения">
+                <label for="obj_1_3">Элеваторы, склады силосного типа, объекты мукомольного крупяного и комбикормового производства с минимальной проектной мощностью от 100 т/сутки, на которых осуществляется переработка зерна и комбикормового сырья , а также элеваторы, склады силосного типа, объекты мукомольного, крупяного и комбикормового производства, вместимостью от 500 тонн, на которых осуществляется хранение зерна, продуктов его переработки, комбикормового сырья, в процессе эксплуатации которых образуются взрывоопасные пылевоздушные смеси с концентрационным пределом взрываемости ниже 65 г/м3, способные самовозгораться от источника зажигания и самостоятельно гореть после его удаления (ТКП 45-3.05-166-2009)</label><br>
+                <br>
+                <input id="obj_1_4" type="checkbox" name="gpn" value="Оборудование, работающее под избыточным давлением (ПОПБОРИД)" title="подсказка положения">
+                <label for="obj_1_4">Оборудование, работающее под избыточным давлением (ПОПБОРИД)</label><br>
+                <br>
+                <input id="obj_1_5" type="checkbox" name="gpn" value="Паровые котлы с давлением пара не более 0,07 МПа и водогрейные котлы с температурой нагрева воды не выше 115°С (ПОПБПКВК)" title="подсказка положения">
+                <label for="obj_1_5">Паровые котлы с давлением пара не более 0,07 МПа и водогрейные котлы с температурой нагрева воды не выше 115°С (ПОПБПКВК)</label><br>
+
+                <br>
+                <input id="obj_1_6" type="checkbox" name="gpn" value="Грузоподъёмные краны (ПОПБГК, ТКП 45-1.03-103-2009)" title="подсказка положения">
+                <label for="obj_1_6">Грузоподъёмные краны (ПОПБГК, ТКП 45-1.03-103-2009)</label><br>
+                <br>
+                <input id="obj_1_7" type="checkbox" name="gpn" value="Аттракционы (ПОПБА, СТБ EN 13814-2008)" title="подсказка положения">
+                <label for="obj_1_7">Аттракционы (ПОПБА, СТБ EN 13814-2008)</label><br>
+                <br>
+                <input id="obj_1_8" type="checkbox" name="gpn" value="Горные выработки диаметром 1200 мм и более, в которых ведутся подземные горные работы (ПОПБПГВСПС)" title="подсказка положения">
+                <label for="obj_1_8">Горные выработки диаметром 1200 мм и более, в которых ведутся подземные горные работы (ПОПБПГВСПС)</label><br>
+                <br>
+                <input id="obj_1_9" type="checkbox" name="gpn" value="Объекты металлургических и литейных производств (ПОПБПТИРЧЦМСОЭР)" title="подсказка положения">
+                <label for="obj_1_9">Объекты металлургических и литейных производств (ПОПБПТИРЧЦМСОЭР)</label><br>
+                <br>
+                <input id="obj_1_10" type="checkbox" name="gpn" value="Объекты газораспределительной системы и газопотребления (ПОПБОГ РБ, СП 4.03.01-2020)" title="подсказка положения">
+                <label for="obj_1_10">Объекты газораспределительной системы и газопотребления (ПОПБОГ РБ, СП
+                    4.03.01-2020)</label><br>
+
+
+
+
+
+
+
+
+            </fieldset>
+
+
+
+
+
+
+            <fieldset>
+                <legend>
+                    <h4>Объекты, подведомственные Министерству архитектуры и строительства РБ</h4>
+                </legend>
+
+
+                <input id="obj_2_1" type="checkbox" name="mas" value="Несущие и ограждающие металлоконструкции (ГОСТ 23118-2019, ТКП 45-5.04-121-2009, ТКП 45-5.04-217-2011)" title="подсказка положения">
+                <label for="obj_2_1">Несущие и ограждающие металлоконструкции (ГОСТ 23118-2019, ТКП 45-5.04-121-2009, ТКП 45-5.04-217-2011)</label><br>
+                <br>
+                <input id="obj_2_2" type="checkbox" name="mas" value="Тепловые сети (СП 4.02.01-2020)" title="подсказка положения">
+                <label for="obj_2_2">Тепловые сети (СП 4.02.01-2020)</label><br>
+                <br>
+                <input id="obj_2_3" type="checkbox" name="mas" value="Наружные сети и сооружения водоснабжения и канализации (ТКП 45-4.01-272-2012)" title="подсказка положения">
+                <label for="obj_2_3">Наружные сети и сооружения водоснабжения и канализации (ТКП 45-4.01-272-2012)</label><br>
+                <br>
+                <input id="obj_2_4" type="checkbox" name="mas" value="Внутренние инженерные системы зданий и сооружений (СП 1.03.02-2020)" title="подсказка положения">
+                <label for="obj_2_4">Внутренние инженерные системы зданий и сооружений (СП 1.03.02-2020)</label><br>
+                <br>
+                <input id="obj_2_5" type="checkbox" name="mas" value="Закладные детали железобетонных конструкций (СП 5.03.01-2020, ГОСТ 23118-2019)" title="подсказка положения">
+                <label for="obj_2_5">Закладные детали железобетонных конструкций (СП 5.03.01-2020, ГОСТ 23118-2019)</label><br>
+
+            </fieldset>
+
+
+            <fieldset>
+                <legend>
+                    <h4>Информация об аттестуемых сварщиках</h4>
+                </legend>
+                <br>
+                <!-- <br>
+                <p>Кнопки значки на выбор:
+                    <button class="btn"><i class="fa fa-home"></i></button>
+                    <button class="btn"><i class="fa fa-bars"></i></button>
+                    <button class="btn"><i class="fa fa-trash"></i></button>
+                    <button class="btn"><i class="fa fa-close"></i></button>
+                    <button class="btn"><i class="fa fa-folder"></i></button>
+                </p> -->
+
+                <a href="#" onclick="return dodajWiersz();"><button class="button blue"><i class="fa fa-user-plus"></i>
+                        Добавить</button></a>
+
+                <link rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                <br>
+
+                <table id="dowolna_nazwa" border=0 cellspacing=1 cellpadding=3>
+
+                    <tr>
+                        
+                        <td>
+                            <p class="center">Ф.И.О.</p>
+                        </td>
+                        <td>
+                            <p class="center">Клеймо</p>
+                        </td>
+                        <td>
+                            <p class="center">Серия и номер паспорта</p>
+                        </td>
+                        <td>
+                            <p class="center">Дата рождения</p>
+                        </td>
+                        <td>
+                            <p class="center"> </p>
+                        </td>
+                    </tr>
+
+
+                    
+
+                    <tr>
+                        <td><input type="text" name="welder_name" size="30" style="width: 290px;" placeholder="Иванов Иван Иванович"></td>
+                        <td><input type="text" name="welder_brand" size="10" style="width: 100px;"></td>
+                        <td><input type="text" name="welder_passport" size="25" style="text-transform: uppercase; width: 220px;" placeholder="КВ 1234567"></td>
+                        <td><input type="text" name="welder_date_birth" style="width: 275px;" placeholder="дд.мм.гггг"></td>
+                        <td valign="top"><a href="#" onclick="return rmline(this);"><button class="btn"><i
+                                        class="fa fa-close"></i></button></td>
+                    </tr>
+
+
+                </table>
+                <!-- <br>
+                    <a href="#" onclick="return dodajWiersz();"><button>Добавить</button></a>
+                    <a href="#" onclick="return rmline(0);"><button>Удалить</button></a> -->
+                <!-- </span> <input type="hidden" name="count" value="0"> -->
+            </fieldset>
+
+            <br>
+            <br>
+
+            <button type="submit">
+                <h3>Отправить заявку</h3>
+            </button>
+            <button type="reset">
+                <h3>Очистить форму</h3>
+            </button>
+        </form>
+
+    </div>
+
+
+
+
+
+
+
+    <script>
+
+
+
+
+
+
+        function addstee_2() {
+            var add_row = document.getElementById("list_ug_steel");
+            console.log("РАБОТАЕТ ПРОГА", add_row)
+            let c = add_row.querySelectorAll('tr').length;
+            c = c
+
+            console.log("c=", c)
+
+            var new_row = document.createElement("tr");
+            console.log("new_row=", new_row)
+
+            var tdlabel = document.createElement("td");
+            console.log("tdlabel=", tdlabel)
+            let input_label = document.createElement("label")
+            input_label.innerHTML = `<label for="steel_1">Марка стали*</label>`
+            console.log("input_label=", input_label)
+            tdlabel.appendChild(input_label);
+            console.log("tdlabel=", tdlabel)
+            new_row.appendChild(tdlabel);
+            console.log("new_row=", new_row)
+
+
+            var tdsteel = document.createElement("td");
+            console.log("РАБОТАЕТ ПРОГА", tdsteel)
+            let input_steel = document.createElement("b")
+            input_steel.innerHTML = `<select name="list_ug_steel[${c}]" ><option value=""></option><option value="grp_1">Группа 1</option><option value="grp_1">Группа 2</option><option value="grp_1">Группа 3</option>`
+            console.log("РАБОТАЕТ ПРОГА", input_steel)
+            tdsteel.appendChild(input_steel);
+            console.log("РАБОТАЕТ ПРОГА", tdsteel)
+            new_row.appendChild(tdsteel);
+            console.log("РАБОТАЕТ ПРОГА", new_row)
+
+
+            var tdBUTT = document.createElement("td");
+            console.log("РАБОТАЕТ ПРОГА", tdBUTT)
+            let element_a = document.createElement("a")
+            element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
+            console.log("РАБОТАЕТ ПРОГА", element_a)
+            tdBUTT.appendChild(element_a);
+            console.log("РАБОТАЕТ ПРОГА", tdBUTT)
+            new_row.appendChild(tdBUTT);
+            console.log("РАБОТАЕТ ПРОГА", new_row)
+
+
+            var dodac = document.getElementById("list_ug_steel");
+            console.log("РАБОТАЕТ ПРОГА", dodac)
+            dodac.appendChild(new_row);
+            console.log("РАБОТАЕТ ПРОГА000", dodac)
+
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function addsteel(steel_table) {
+            var add_row = document.getElementById("list_ctyk_steel");
+            console.log("РАБОТАЕТ ПРОГА", add_row)
+            let c = add_row.querySelectorAll('tr').length;
+            c = c
+
+
+            console.log("c=", c)
+
+
+            var new_row = document.createElement("tr");
+            console.log("new_row=", new_row)
+
+
+            var tdlabel = document.createElement("td");
+            console.log("tdlabel=", tdlabel)
+            let input_label = document.createElement("label")
+            input_label.innerHTML = `<label for="steel_1">Марка стали*</label>`
+            console.log("input_label=", input_label)
+            tdlabel.appendChild(input_label);
+            console.log("tdlabel=", tdlabel)
+            new_row.appendChild(tdlabel);
+            console.log("new_row=", new_row)
+
+
+            var tdsteel = document.createElement("td");
+            console.log("РАБОТАЕТ ПРОГА", tdsteel)
+            let input_steel = document.createElement("b")
+            input_steel.innerHTML = `<input name="list_ctyk_steel[${c}]" type="text" style="width: 200px;">`
+            console.log("РАБОТАЕТ ПРОГА", input_steel)
+            tdsteel.appendChild(input_steel);
+            console.log("РАБОТАЕТ ПРОГА", tdsteel)
+            new_row.appendChild(tdsteel);
+            console.log("РАБОТАЕТ ПРОГА", new_row)
+
+
+            var tdBUTT = document.createElement("td");
+            console.log("РАБОТАЕТ ПРОГА", tdBUTT)
+            let element_a = document.createElement("a")
+            element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
+            console.log("РАБОТАЕТ ПРОГА", element_a)
+            tdBUTT.appendChild(element_a);
+            console.log("РАБОТАЕТ ПРОГА", tdBUTT)
+            new_row.appendChild(tdBUTT);
+            console.log("РАБОТАЕТ ПРОГА", new_row)
+
+
+            var dodac = document.getElementById("list_ctyk_steel");
+            console.log("РАБОТАЕТ ПРОГА", dodac)
+            dodac.appendChild(new_row);
+            console.log("РАБОТАЕТ ПРОГА000", dodac)
+
+
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function dodajWierszNew(table_ID) 
+
+            {
+                console.log("РАБОТАЕТ ПРОГА----------", table_ID)
+                var new_tr = document.querySelector('.new_tr').cloneNode(true);
+                document.getElementById(table_ID).appendChild(new_tr);
+
+                return false;
+            }
+
+
+
+
+
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function dodajWiersz() {
+            var add_row = document.getElementById("dowolna_nazwa");
+            let c = add_row.querySelectorAll('tr').length;
+            c = --c
+
+
+            var new_row = document.createElement("tr");
+
+            var tdFIO = document.createElement("td");
+            let input_FIO = document.createElement("b")
+            input_FIO.innerHTML = `<input type="text" name="welder_name" size="50" style="width: 290px;" placeholder="Иванов Иван Иванович">`
+
+            tdFIO.appendChild(input_FIO);
+            new_row.appendChild(tdFIO);
+
+            var tdBRAND = document.createElement("td");
+            let input_brand = document.createElement("b")
+            input_brand.innerHTML = `<input type="text" name="welder_brand" size="10" style="width: 100px;">`
+            tdBRAND.appendChild(input_brand);
+            new_row.appendChild(tdBRAND);
+
+            var tdPASSPORT = document.createElement("td");
+            let input_passport = document.createElement("b")
+            input_passport.innerHTML = `<input type="text" name="welder_passport" size="25" style="text-transform: uppercase; width: 220px;" placeholder="КВ 1234567">`
+            tdPASSPORT.appendChild(input_passport);
+            new_row.appendChild(tdPASSPORT);
+
+            `<input type="text" name="welder_date_birth" style="width: 275px;">`
+
+            var tdDATE = document.createElement("td");
+            let input_date = document.createElement("b")
+            tdDATE.innerHTML = `<input type="text" name="welder_date_birth" style="width: 275px;" placeholder="дд.мм.гггг">`
+            tdBRAND.appendChild(input_date);
+            new_row.appendChild(tdDATE);
+
+
+            `var tdDATE = document.createElement("td");
+            let input_date = document.createElement("input")
+            input_date.type = "date"
+            input_date.name = "welder_date_birth"
+            tdDATE.appendChild(input_date);
+            new_row.appendChild(tdDATE);`
+
+            var tdBUTT = document.createElement("td");
+            let element_a = document.createElement("a")
+            element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
+            tdBUTT.appendChild(element_a);
+            new_row.appendChild(tdBUTT);
+
+            var dodac = document.getElementById("dowolna_nazwa");
+            dodac.appendChild(new_row);
+
+            return false;
+        }
+
+
+
+        function rmline(q) {
+            w = q.closest('tr')
+            w.parentElement.removeChild(w)
+            return false;
+        }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+
+
+
+
+
+    {% comment %} {% block content %}
+
+    <style>
+        input[type=text],
+        textarea {
+            width: auto;
+        }
+    </style>
+    <br><br> 
+    <h1><p class="center">Регистрация</p></h1>
+    <form action="" method="post" class="center">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Регистрация">
+    </form>
+    {% endblock %}
+
+
+
+
+    ################################################## {% endcomment %}
+
+
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    input[type=text],
+    textarea {
+        width: auto;
+    }
+</style>
+
+{% if not user.is_authenticated %}
+{% comment %} <div class="container"> {% endcomment %}
+    <br><br> 
+    <h2><p class="center">Регистрация</p></h2>
+    {% comment %} <div class="col-lg-6 col-lg-offset-3"> {% endcomment %}
+        <form method="post" action="{% url 'register' %}" class="center">
+            {% csrf_token %}
+            {% for field in form %}
+            {% comment %} <p> {% endcomment %}
+              {{ field.label_tag }}
+                {% for error in field.errors %}
+                    <p class="register-error">{{ error }}</p>
+              {% endfor %}
+              {{ field }}
+              {% if field.help_text %}
+              <span class="help-text-register">{{ field.help_text }}</span>
+              {% endif %}
+
+            </p>
+            {% endfor %}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+{% else %}
+<h1 class="text-center">Вы уже зарегистрированы!</h1>
+<h5 class="text-center">Чтобы зарегистрировать новый аккаунт, выйдете из текущего.</h5>
+{% endif %}
+
+{% endblock %}

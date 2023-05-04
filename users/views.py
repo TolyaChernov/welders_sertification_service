@@ -1,0 +1,69 @@
+from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
+from .forms import (AuthenticationUserForm, RegisterUserForm,
+                    RegistrationForm)
+
+
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm  # UserCreationForm
+    template_name = "users/register.html"
+    success_url = reverse_lazy("login")
+    # def get_redirect_url(self):
+    #     if self.request.method == "POST":
+    #         next_url = self.request.POST.get('next')
+    #         if next_url != '':
+    #             return next_url
+    #     return reverse_lazy('home')
+
+
+class LoginUser(LoginView):
+    form_class = AuthenticationUserForm
+    template_name = "users/login.html"
+
+    def get_redirect_url(self):
+        if self.request.method == "POST":
+            next_url = self.request.POST.get("next")
+            if next_url != "":
+                return next_url
+        return reverse_lazy("index")
+
+
+def logout_user(request):
+    logout(request)
+    return redirect("index")
+
+
+#####################################################################
+
+
+def register(request):
+    if not request.user.is_authenticated:
+        if request.POST:
+            form = RegistrationForm(request.POST or None)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get("username")
+                my_password1 = form.cleaned_data.get("password1")
+                user = authenticate(username=username, password=my_password1)
+                if user and user.is_active:
+                    login(request, user)
+                    return redirect("private_office")
+
+                else:
+                    form.add_error(None, "Unknown or disabled account")
+                    return render(request, "users/register.html",
+                                  {"form": form})
+
+            else:
+                return render(request, "users/register.html", {"form": form})
+        else:
+            return render(request, "users/register.html",
+                          {"form": RegistrationForm()})
+    else:
+        return redirect("private_office")

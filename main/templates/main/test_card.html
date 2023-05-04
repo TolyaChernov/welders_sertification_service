@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %} {% block content %}
+
+<style>
+  div {
+    width: 650px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 150px;
+  }
+</style>
+
+<br /><br />
+<h2><p class="center">Проверка удостоверение</p></h2>
+<form action="" method="GET" class="center">
+  {{ form.as_p }}
+  <p>{{ message }}</p>
+  <p class="center"><input type="submit" value="Проверить" /></p>
+</form>
+
+
+{% for i in result %}
+<p>Имя: {{ i.welder_name }} --- Клеймо: {{ i.welder_brand }} --- Дата рождения(будет аттестации): {{ i.welder_date_birth }}
+ {% endfor %} 
+
+
+{% endblock %}

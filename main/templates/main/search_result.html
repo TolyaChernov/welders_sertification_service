@@ -1,0 +1,151 @@
+{% extends 'main/base.html' %} 
+
+{% block content %}
+
+<p>Имя пользователя: {{ user }}</p>
+<h1>Результаты поиска:</h1>
+<h2>
+  {% with result.count as total_result %} Найдено {{ total_result }} {% endwith %}
+</h2>
+<table id="result_list">
+  <thead>
+    <tr>
+      <th scope="col" class="sortable column-name">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=name">Ф.И.О.</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-brand">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=brand">Клеймо</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-id_card">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=id_card">Удостоверение №</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-agency">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=agency">Организация</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-date_certification">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=date_certification">Дата аттестации</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-date_certification">
+        <div class="text">Область распространения</div>
+        <div class="clear"></div>
+      </th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for res in result %}
+    <tr>
+      <td class="field-name">{{ res.name }}</td>
+      <td class="field-name">{{ res.brand }}</td>
+      <th class="field-id_card nowrap">{{ res.id_card }}</th>
+      <td class="field-agency">{{ res.agency }}</td>
+      <td class="field-date_certification nowrap">
+        {{ res.date_certification }}
+      </td>
+      <td class="field-name"><a href="{% url 'result_1' pk=res.pk %}"><button>Подробнее</button></a></td>
+     </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
+
+
+<!-- 
+<table id="result_list">
+  <thead>
+    <tr>
+      <th scope="col" class="sortable column-name">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=name">Ф.И.О.</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-brand">
+        <a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=brand"><div class="text">Клеймо</div></a>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-agency">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=agency">Организация</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-id_card">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=id_card">Удостоверение №</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-date_certification">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=date_certification">Дата аттестации</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-date_validity">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=date_validity">Срок действия</a></div>
+        <div class="clear"></div>
+      </th>
+
+
+      <th scope="col" class="sortable column-method_welding">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=method_welding">Способ сварки</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-diameter">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=diameter">Диаметр</a></div>
+        <div class="clear"></div>
+      </th>
+      <th scope="col" class="sortable column-thickness">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=thickness">Толщина</a></div>
+        <div class="clear"></div>
+      </th>
+      <th scope="col" class="sortable column-materials">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=materials">Материалы</a></div>
+        <div class="clear"></div>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    
+
+    {% for res in result %}
+
+    <tr>
+      <td class="field-name"><a href="{% url 'result_1' pk=res.pk %}"><button>{{ res.name }}</button></a></td>
+      <td class="field-brand">{{ res.brand }}</td>
+
+      <th class="field-agency nowrap">{{ res.agency }}</th>
+      <td class="field-id_card">{{ res.id_card }}</td>
+      <td class="field-date_certification nowrap">
+        {{ res.date_certification }}
+      </td>
+      
+      <td class="field-date_validity nowrap">
+        срок действия {{ res.date_certification|add:"Y=3" }}
+      </td>
+
+      <td class="field-method_welding">{{ res.method_welding }}</td>
+
+      <td class="field-diameter">{{ res.diameter }}</td>
+      <td class="field-thickness">{{ res.thickness }}</td>
+      <td class="field-materials">{{ res.materials }}</td>
+    </tr>
+
+
+
+    {% endfor %}
+  </tbody>
+</table> -->

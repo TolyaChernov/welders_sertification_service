@@ -1,0 +1,911 @@
+
+
+
+{% extends 'main/private_office_s1.html' %} 
+{% block content_1 %}
+
+
+
+
+
+
+    <style>
+        body {
+            font-family: "Arial";
+            font-size: 18px;
+            border: 0px solid;
+            width: 920px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+            line-height: 18px;
+            
+        }
+
+        div {
+            border: 0px solid;
+            padding: 10px;
+        }
+
+        input[type=text],
+        textarea {
+            width: 450px;
+            padding: 10;
+            margin: 10;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+
+        /* Кнопки стиля */
+        .btn {
+            background-color: rgb(255, 255, 255);
+            /* Синий фон */
+            border: none;
+            /* Удалить границы */
+            color: rgb(182, 2, 2);
+            /* Белый текст */
+            padding: 1px 5px;
+            /* Немного отступов */
+            font-size: 18px;
+            /* Установите размер шрифта */
+            cursor: pointer;
+            /* Указатель мыши при наведении */
+            border-radius: 5px;
+        }
+
+        /* Более темный фон при наведении курсора мыши */
+        .btn:hover {
+            background-color: rgb(197, 83, 83);
+            color: rgb(255, 255, 255);
+        }
+
+        .btn:active {
+            background-color: rgb(142, 10, 10);
+            color: rgb(255, 255, 255);
+        }
+
+        fieldset {
+            border: 1px solid rgb(36, 37, 36);
+        }
+
+        label {
+            vertical-align: top;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+
+        .button {
+            /* Сбрасываем дефолтные стили */
+            border: none;
+            outline: none;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 12px;
+            /* Можно также использовать любые встроенные и кастомные шрифты, например, отсюда  */
+            font-family: Roboto, Verdana, Tahoma, sans;
+            /* Тут можно поэкспериментировать */
+            padding: 8px 8px;
+            border-radius: 8px;
+            color: rgb(0, 0, 0);
+        }
+
+        .button i {
+            margin-right: 3px;
+        }
+
+        .button+.button {
+            margin-left: 6px;
+        }
+
+        .button.blue {
+            background: #57ec63;
+            color: rgb(0, 0, 0);
+        }
+
+        .button.purple {
+            background: #9b59b6;
+        }
+
+
+        .button:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover.blue {
+            background: #4ec958;
+            color: rgb(0, 0, 0);
+        }
+
+        .button:hover.purple {
+            background: #a66bbe;
+        }
+
+        .button:active {
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:active.blue {
+            background: #40ad49;
+            color: rgb(15, 14, 109);
+        }
+
+        .button:active.purple {
+            background: #8f4bab;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .checkbox {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            margin: 10px 0 0 20px;
+        }
+
+        .checkbox+label {
+            position: relative;
+            padding: 0 0 0 45px;
+            cursor: pointer;
+        }
+
+        .checkbox+label:before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 40px;
+            height: 18px;
+            border-radius: 8px;
+            background: #CDD1DA;
+            box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2);
+            transition: .3s;
+        }
+
+        .checkbox+label:after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #FFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+            transition: .2s;
+        }
+
+        .checkbox:checked+label:before {
+            background: #57ec63;
+        }
+
+        .checkbox:checked+label:after {
+            left: 24px;
+        }
+
+        .checkbox:focus+label:before {
+            box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2), 0 0 0 3px rgba(255, 255, 255, 0.7);
+        }
+    </style>
+
+
+
+
+
+    <script type="text/javascript">
+
+        function showHide(element_id) {
+            //Если элемент с id-шником element_id существует
+            if (document.getElementById(element_id)) {
+                //Записываем ссылку на элемент в переменную obj
+                var obj = document.getElementById(element_id);
+                //Если css-свойство display не block, то:
+                if (obj.style.display != "block") {
+                    obj.style.display = "block"; //Показываем элемент
+                }
+                else obj.style.display = "none"; //Скрываем элемент
+                {
+                    obj.reset()
+                }
+            }
+            //Если элемент с id-шником element_id не найден, то выводим сообщение
+            else alert("Элемент с id: " + element_id + " не найден!");
+        }
+
+    </script>
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <br>
+    <br>
+    <h2><p class="center">Акт на аттестацию сварщика</p></h2>
+    {% comment %} <p class='center'>* редактирование</p> {% endcomment %}
+    <br>
+    <div class="body">
+        <form id="application" method="POST" action="" autocomplete="on">
+            {% csrf_token %}
+
+            <fieldset>
+                <legend>
+                    <h4>Период контроля сарного соединения  (для инженера)</h4>
+                </legend>
+
+                <p class="right">
+                    &ensp;
+                    <input id="user_name1" type="hidden">
+                </p>
+
+                <p class="center">
+                    <label for="start_date">Начало контроля*:</label>
+                    &ensp;
+                    <input name="start_date" type="date" size="30" value="{{result.start_date}}" >
+                    &ensp; &ensp; &ensp;
+                    <label for="end_date">Окончание контроля*:</label>
+                    &ensp;
+                    <input name="end_date" type="date" value="{{result.end_date}}" >
+                </p>
+            </fieldset>
+
+
+
+
+
+
+            
+
+            <br>
+
+            <fieldset>
+                <legend>
+                    <h4>Способ сварки</h4>
+                </legend>
+
+
+                <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
+                    <tr>
+                        <td>Способ сварки*: </td>
+                        <td><select name="sposob_svarki" value={{ result.sposob_svarki.weld_des }} >{{ result.sposob_svarki }}
+                                <option value="" {% if result.sposob_svarki.weld_des == '' %} selected {% endif %} ></option>
+                                <option value='111' {% if result.sposob_svarki.weld_des == '111' %} selected {% endif %} >111 / SMAW / ручная дуговая сварка плавящимся покрытым электродом
+                                </option>
+                                <option value='121' {% if '121' == result.sposob_svarki.weld_des %} selected {% endif %} >121 / SAW / автоматическая дуговая сварка под слоем флюса</option>
+                                <option value="135" {% if result.sposob_svarki.weld_des == '135' %} selected {% endif %} >135 / MAG / механизированная дуговая сварка в среде активных газов
+                                    сплошной проволокой</option>
+                                <option value="136" {% if result.sposob_svarki.weld_des == '136' %} selected {% endif %} >136 / MAG / механизированная дуговая сварка в среде активных газов
+                                    порошковой проволокой</option>
+                                <option value="141" {% if result.sposob_svarki.weld_des == '141' %} selected {% endif %} >141 / TIG / ручная дуговая сварка неплавящимся вольфрамовым
+                                    электродом</option>
+                        </td>
+
+
+                    </tr>
+
+                </table>
+
+
+
+            </fieldset>
+
+
+
+
+
+            <fieldset>
+                <legend>
+                    <h4>Область распространения</h4>
+                </legend>
+
+                <fieldset id="list">
+                    <legend><h4>Лист</h4></legend>
+
+                    <table style="border-collapse: collapse; width: 100%;" border="0">
+                        <tbody>
+                        <tr>
+    
+                        <td style="width: 50%;">
+                            <fieldset id="list_s" >
+                                <legend><h4>Стыковой шов</h4></legend>
+        
+                                <table id="list_ctyk_steel" style="vertical-align: top;">
+                                    <tr>
+                                        <td valign="top">Марка стали*: </td>
+                                        <td><textarea rows="2" cols="65" name="sheet_butt_weld_steel_grade" type="text" style="width: 250px;">{{ result.sheet_butt_weld_steel_grade }}</textarea></td>
+        
+                                    </tr>
+        
+                                </table>
+        
+                                <br>
+                                <br>
+        
+                                <label for="steel_1">Толщина, мм</label>
+                                <input name="sheet_butt_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.sheet_butt_weld_min_thickn }}">
+                                <input name="sheet_butt_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
+                                    style="width: 50px;" value="{{ result.sheet_butt_weld_max_thickn }}">
+                                <br>
+                                <br>
+        
+                                <label>Пространственные положения</label><br>
+                                <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pa" value="PA" title="нижнее положение" {% if 'PA' in result.sheet_butt_weld_position %} checked {% endif %}><label
+                                    for="l_s_pa" title="нижнее положение">PA</label>
+                                <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pc" value="PC"
+                                    title="горизонтальное положение" {% if 'PC' in result.sheet_butt_weld_position %} checked {% endif %}><label for="l_s_pc"
+                                    title="горизонтальное положение">PC</label>
+                                <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pf" value="PF"
+                                    title="вертикальное положение, сварка снизу вверх" {% if 'PF' in result.sheet_butt_weld_position %} checked {% endif %}><label for="l_s_pf"
+                                    title="вертикальное положение, сварка снизу вверх">PF</label>
+                                <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pg" value="PG"
+                                    title="вертикальное положение, сварка сверху вниз" {% if 'PG' in result.sheet_butt_weld_position %} checked {% endif %}><label for="l_s_pg"
+                                    title="вертикальное положение, сварка сверху вниз">PG</label>
+                                <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pe" value="PE" title="потолочное положение" {% if 'PE' in result.sheet_butt_weld_position %} checked {% endif %}><label
+                                    for="l_s_pe" title="потолочное положение">PE</label>
+        
+                            </fieldset>
+                        </td>
+                        
+
+
+
+                        <td style="width: 50%;">
+                            <fieldset id="list_u">
+                                <legend><h4>Уголовой шов</h4></legend>
+        
+        
+                                {% comment %} <a href="#" onclick="return addstee_2();"><button class="button blue"><i class="fa fa-plus"></i>
+                                        Добавить</button></a> {% endcomment %}
+        
+                                <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
+                                    <tr>
+                                        <td valign="top">Марка стали*: </td>
+                                        <td><textarea rows="2" cols="65" name="sheet_fillet_weld_steel_grade" type="text" style="width: 250px;">{{ result.sheet_fillet_weld_steel_grade }}</textarea></td>
+        
+                                        {% comment %} <td valign="top"><a href="#" onclick="return rmline(this);"><button class="btn"><i
+                                                        class="fa fa-close"></i></button></td> {% endcomment %}
+                                    </tr>
+        
+                                </table>
+        
+        
+                                <!-- <label for="steel_1">Марки сталей*</label>
+                                <input name="steel_1" type="text" size="50" style="width: 200px;"> -->
+                                <br><br>
+                                <label for="steel_1">Толщина, мм</label>
+                                <input name="sheet_fillet_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.sheet_fillet_weld_min_thickn }}">
+                                <input name="sheet_fillet_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
+                                    style="width: 50px;" value="{{ result.sheet_fillet_weld_max_thickn }}">
+        
+                                <br>
+                                <br>
+        
+                                <label>Пространственные положения</label><br>
+                                
+                                <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pa" value="PA" 
+                                    title="нижнее положение" {% if 'PA' in result.sheet_fillet_weld_position %} checked {% endif %}><label
+                                    for="l_u_pa" title="нижнее положение">PA</label>
+        
+                                <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pa" value="PB" 
+                                    title="нижнее положение" {% if 'PB' in result.sheet_fillet_weld_position %} checked {% endif %}><label
+                                    for="l_u_pa" title="нижнее положение">PB</label>
+                                
+                                {% comment %} <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pb" value="PB"
+                                    title="горизонтально-вертикальное положение" {% if 'PB' in result.sheet_fillet_weld_position %} checked {% endif %}><label for="l_u_pb"
+                                    title="горизонтально-вертикальное положение">PB</label> {% endcomment %}
+                                
+                                <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pc" value="PC"
+                                    title="горизонтальное положение" {% if 'PC' in result.sheet_fillet_weld_position %} checked {% endif %}><label for="l_u_pc"
+                                    title="горизонтальное положение">PC</label>
+                                
+                                <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pf" value="PF"
+                                    title="вертикальное положение, сварка снизу вверх" {% if 'PF' in result.sheet_fillet_weld_position %} checked {% endif %}><label for="l_u_pf"
+                                    title="вертикальное положение, сварка снизу вверх">PF</label>
+                                
+                                <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pg" value="PG"
+                                    title="вертикальное положение, сварка сверху вниз" {% if 'PG' in result.sheet_fillet_weld_position %} checked {% endif %}><label for="l_u_pg"
+                                    title="вертикальное положение, сварка сверху вниз">PG</label>
+                                
+                                <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pd" value="PD"
+                                    title="горизонтально-потолочное положение" {% if 'PD' in result.sheet_fillet_weld_position %} checked {% endif %}><label for="l_u_pd"
+                                    title="горизонтально-потолочное положение">PD</label>
+                                
+                                <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pe" value="PE" 
+                                    title="потолочное положение" {% if 'PE' in result.sheet_fillet_weld_position %} checked {% endif %}><label
+                                    for="l_u_pe" title="потолочное положение">PE</label>
+        
+                            </fieldset>
+                        </td>
+                        
+                        </tr>
+                        </tbody>
+                        </table>
+
+
+                </fieldset>
+
+                <br>
+
+
+
+
+
+                <fieldset id="tube">
+                    <legend><h4>Труба</h4></legend>
+
+                    <table style="border-collapse: collapse; width: 100%;" border="0">
+                        <tbody>
+                        <tr>
+
+                        <td style="width: 50%;">
+                            <fieldset id="tube_s">
+                                <legend><h4>Стыковой шов</h4></legend>
+        
+                            <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
+                                <tr>
+                                    <td valign="top">Марка стали*: </td>
+                                    <td><textarea rows="2" cols="65" name="tube_butt_weld_steel_grade" type="text" style="width: 250px;">{{ result.tube_butt_weld_steel_grade }}</textarea></td>
+                                </tr>
+        
+                            </table>
+
+                                <br><br>
+                                <label for="steel_1">Толщина, мм</label>
+                                <input name="tube_butt_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.tube_butt_weld_min_thickn }}">
+                                <input name="tube_butt_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
+                                    style="width: 50px;" value="{{ result.tube_butt_weld_max_thickn }}">
+        
+                                <br><br>
+        
+                                <label for="steel_1">Диаметр, мм</label>
+                                <input name="tube_butt_weld_min_diam" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.tube_butt_weld_min_diam }}">
+                                <input name="tube_butt_weld_max_diam" type="number" size="1" max="1000" placeholder="до"
+                                    style="width: 50px;" value="{{ result.tube_butt_weld_max_diam }}">
+        
+                                <br><br>
+        
+                                <label>Пространственные положения</label><br>
+                                    <input type="checkbox" name="tube_butt_weld_position" id="t_s_pa" value="PA" 
+                                    title="нижнее положение" {% if 'PA' in result.tube_butt_weld_position %} checked {% endif %}><label for="t_s_pa" 
+                                    title="нижнее положение">PA</label>
+                                
+                                    <input type="checkbox" name="tube_butt_weld_position" id="t_s_pc" value="PC"
+                                    title="горизонтальное положение" {% if 'PC' in result.tube_butt_weld_position %} checked {% endif %}><label for="t_s_pc"
+                                    title="горизонтальное положение">PC</label>
+                                
+                                    <input type="checkbox" name="tube_butt_weld_position" id="t_s_ph" value="PH"
+                                    title="положение вертикальное, сварка снизу вверх (труба неповоротная)" {% if 'PH' in result.tube_butt_weld_position %} checked {% endif %}><label for="t_s_ph"
+                                    title="положение вертикальное, сварка снизу вверх (труба неповоротная)">PH</label>
+                                
+                                    <input type="checkbox" name="tube_butt_weld_position" id="t_s_pj" value="PJ"
+                                    title="положение вертикальное, сварка сверху вниз (труба неповоротная)" {% if 'PJ' in result.tube_butt_weld_position %} checked {% endif %}><label for="t_s_pj"
+                                    title="положение вертикальное, сварка сверху вниз (труба неповоротная)">PJ</label>
+                                
+                                    <input type="checkbox" name="tube_butt_weld_position" id="t_s_pe" value="PE" 
+                                    title="потолочное положение" {% if 'PE' in result.tube_butt_weld_position %} checked {% endif %}><label for="t_s_pe">PE</label>
+                                
+                                    <input type="checkbox" name="tube_butt_weld_position" id="t_s_hl045" value="H-L045"
+                                    title="сварка снизу вверх в наклонном положении под 45° (труба неповоротная)" {% if 'H-L045' in result.tube_butt_weld_position %} checked {% endif %}><label for="t_s_hl045"
+                                    title="сварка снизу вверх в наклонном положении под 45° (труба неповоротная)">H-L045</label>
+                                
+                                    <input type="checkbox" name="tube_butt_weld_position" id="t_s_jl045" value="J-L045"
+                                    title="сварка сверху вниз в наклонном положении под 45° (труба неповоротная)" {% if 'J-L045' in result.tube_butt_weld_position %} checked {% endif %}><label for="t_s_jl045"
+                                    title="сварка сверху вниз в наклонном положении под 45° (труба неповоротная)">J-L045</label>
+        
+                            </fieldset>
+                        </td>
+                        
+                        <td style="width: 50%;">
+                            <fieldset id="tube_u">
+                                <legend><h4>Уголовой шов</h4></legend>
+
+
+                                <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
+                                    <tr>
+                                        <td valign="top">Марка стали*: </td>
+                                        <td><textarea rows="2" cols="65" name="tube_fillet_weld_steel_grade" type="text" style="width: 250px;">{{ result.tube_fillet_weld_steel_grade }}</textarea></td>
+                                    </tr>
+            
+                                </table>
+                                    <br><br>
+
+                                <label for="steel_1">Толщина, мм</label>
+                                <input name="tube_fillet_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.tube_fillet_weld_min_thickn }}">
+                                <input name="tube_fillet_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
+                                    style="width: 50px;" value="{{ result.tube_fillet_weld_max_thickn }}">
+                                <br><br>
+                                <label for="steel_1">Диаметр, мм</label>
+                                <input name="tube_fillet_weld_min_diam" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.tube_fillet_weld_min_diam }}">
+                                <input name="tube_fillet_weld_max_diam" type="number" size="1" max="1000" placeholder="до"
+                                    style="width: 50px;" value={{ result.tube_fillet_weld_max_diam }}>
+                                <br><br>
+                                
+                                <label>Пространственные положения</label><br>
+                                
+                                    <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pa" value="PA" 
+                                    title="нижнее положение" {% if 'PA' in result.tube_fillet_weld_position %} checked {% endif %}><label for="t_u_pa" 
+                                    title="нижнее положение">PA</label>
+                                
+                                    <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pb" value="PB" {% if 'PB' in result.tube_fillet_weld_position %} checked {% endif %}><label for="t_u_pb"
+                                    title="горизонтально-вертикальное положение">PB</label>
+                                
+                                    <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pc" value="PC"
+                                    title="горизонтальное положение" {% if 'PC' in result.tube_fillet_weld_position %} checked {% endif %}><label for="t_u_pc"
+                                    title="горизонтальное положение">PC</label>
+                                
+                                    <input type="checkbox" name="tube_fillet_weld_position" id="t_u_ph" value="PH"
+                                    title="положение вертикальное, сварка снизу вверх (труба неповоротная)" {% if 'PH' in result.tube_fillet_weld_position %} checked {% endif %}><label for="t_u_ph"
+                                    title="положение вертикальное, сварка снизу вверх (труба неповоротная)">PH</label>
+                                
+                                    <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pj" value="PJ"
+                                    title="положение вертикальное, сварка сверху вниз (труба неповоротная)" {% if 'PJ' in result.tube_fillet_weld_position %} checked {% endif %}><label for="t_u_pj"
+                                    title="положение вертикальное, сварка сверху вниз (труба неповоротная)">PJ</label>
+                                
+                                    <input type="checkbox" name="tube_fillet_weld_position" id="t_u_pd" value="PD"
+                                    title="горизонтально-потолочное положение" {% if 'PD' in result.tube_fillet_weld_position %} checked {% endif %}><label for="t_u_pd"
+                                    title="горизонтально-потолочное положение">PD</label>
+        
+                            </fieldset>
+                        </td>
+
+
+
+
+                        </tr>
+                        </tbody>
+                        </table>
+
+
+
+                    
+                </fieldset>
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    <h4>Выбор материалов (для инженера)</h4>
+                </legend>
+
+                <fieldset>
+                    <legend>
+                        <h4>Сварочный материал (для инженера)</h4>
+                    </legend>
+    
+                    <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
+                        <tr>
+                            <td>Сварочный материал*: </td>
+                            <td><select name="welder_material" value={{ result.welder_material }} >{{ result.welder_material }}
+                                    <option value="{{ result.welder_material }}">{{ result.welder_material }}</option>
+                                    {% for i in weld_material %}
+                                    <option value="{{ i.diameter }} - {{ i.brand }} - {{ i.certificate_number }}">{{ i.diameter }} - {{ i.brand }} - {{ i.certificate_number }}</option>
+                                    {% endfor %}
+                            </td>
+                        </tr>
+                    </table>                    
+                </fieldset>
+
+
+
+
+                <fieldset>
+                    <legend>
+                        <h4>Основной материал (для инженера)</h4>
+                    </legend>
+    
+                   
+                    <table id="main_material" border=0 cellspacing=1 cellpadding=3 style="width: 100%;">
+                        <tr>
+                            <td style="width: 50%;">
+                                <p>Лист
+                                    <p><a href="#" onclick="return weld_material_plate();"><button class="button blue"><i ></i> Добавить лист</button></a>
+                                    <table id="weld_material_plate" border=0 cellspacing=1 cellpadding=3>
+                                        
+                                        {% for i in list_weld_main_material_plate %}
+                                        <tr> 
+                                            <td><select name="weld_main_material_plate" value={{ result.weld_main_material_plate }}>{{ result.weld_main_material_plate }} 
+                                                <option value="{{ i }}"> {{ i }}</option> 
+                                                    {% for i in weld_main_material_plate %} 
+                                                    <option value="{{ i.thickness }} - {{ i.group_of_material }} - {{ i.steel_grade }} - {{i.certificate_number}}"> 
+                                                    {{ i.thickness }} - {{ i.group_of_material }} - {{ i.steel_grade }} - {{i.certificate_number}}</option> 
+                                                    {% endfor %} </td> 
+                                            <td><a href="#" onclick="return rmline(this);"><button class="btn"><i class="fa fa-close"></i></button></td> 
+                                        </tr>
+                                        {% endfor %}
+
+
+                                    </table> 
+                            </td>
+                            
+                            <td style="width: 50%;">
+                                <p>Труба
+                                    <p><a href="#" onclick="return weld_material_tube();"><button class="button blue"><i ></i> Добавить трубу</button></a>
+                                    
+                                    
+                                    <table id="weld_material_tube" border=0 cellspacing=0 cellpadding=0>
+                                        {% for i in list_weld_main_material_tube %}
+                                        <tr> 
+                                            <td><select name="weld_main_material_tube" value={{ result.weld_main_material_tube }}>{{ result.weld_main_material_tube }} 
+                                                <option value="{{ i }}"> {{ i }}</option> 
+                                                {% for i in weld_main_material_tube %} 
+                                                <option value="D{{ i.diameter }}x{{ i.thickness }}мм - {{ i.group_of_material }} - {{ i.steel_grade }} - {{i.certificate_number}}"> 
+                                                D{{ i.diameter }}x{{ i.thickness }}мм - {{ i.group_of_material }} - {{ i.steel_grade }} - {{i.certificate_number}}</option> 
+                                                {% endfor %}</td> 
+                                            <td><a href="#" onclick="return rmline(this);"><button class="btn"><i class="fa fa-close"></i></button></td> 
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                    </table>      
+                            </td>
+                        </tr>
+                    </table>                   
+                        
+                     
+                                
+                                    
+                                    
+                                                      
+                                        <br>
+
+
+
+
+                                        
+                        
+                                    
+                            
+    
+    
+                       
+                   
+                </fieldset>
+
+                
+            </fieldset>
+
+
+
+            <fieldset>
+                <legend>
+                    <h4>Комиссия (для инженера)</h4>
+                </legend>
+
+
+                <p class="left">
+                    <label>Председатель:</label>
+
+
+
+                <table id="weld_material_tube" border=0 cellspacing=0 cellpadding=0 style="width: 70%;">
+                    <tr> 
+                        <td style="width: 70%;">Должность</td> 
+                        <td style="width: 30%;"> Ф.И.О.</td> 
+                    </tr>
+                    <tr> 
+                        <td ><input name="chef_kom_pos" type="text" style="width: 95%;" placeholder="Начальник службы главного сварщика" value="{{result.chef_kom_pos}}" ></td> 
+                        <td ><input name="chef_kom_fio" type="text" style="width: 95%;" placeholder="Иванов И. И." value="{{result.chef_kom_fio}}" ></td> 
+                    </tr>
+                </table>    
+                
+                <br>
+                <br>
+                <p class="left">
+                    <label>Члены комиссии:</label>
+
+                <table id="weld_material_tube" border=0 cellspacing=0 cellpadding=0 style="width: 70%;">
+                    <tr> 
+                        <td style="width: 70%;">Должность</td> 
+                        <td style="width: 30%;"> Ф.И.О.</td> 
+                    </tr>
+                    {% if list %}
+                    {% for i in list%}
+                    <tr> 
+                        <td ><input name="kom_pos" type="text" style="width: 95%;" placeholder="Сотрудник службы главного сварщика" value="{{i.0}}" ></td> 
+                        <td ><input name="kom_fio" type="text" style="width: 95%;" placeholder="Иванов И. И." value="{{i.1}}" ></td> 
+                    </tr>
+                    {%endfor%}
+                    {% else %}
+                    <tr> 
+                        <td ><input name="kom_pos" type="text" style="width: 95%;" placeholder="Сотрудник службы главного сварщика" value="" ></td> 
+                        <td ><input name="kom_fio" type="text" style="width: 95%;" placeholder="Иванов И. И." value="" ></td> 
+                    </tr>
+
+                    <tr> 
+                        <td ><input name="kom_pos" type="text" style="width: 95%;" placeholder="Сотрудник службы главного сварщика" value="" ></td> 
+                        <td ><input name="kom_fio" type="text" style="width: 95%;" placeholder="Иванов И. И." value="" ></td> 
+                    </tr>
+                    <tr> 
+                        <td ><input name="kom_pos" type="text" style="width: 95%;" placeholder="Сотрудник службы главного сварщика" value="" ></td> 
+                        <td ><input name="kom_fio" type="text" style="width: 95%;" placeholder="Иванов И. И." value="" ></td> 
+                    </tr>
+                    <tr> 
+                        <td ><input name="kom_pos" type="text" style="width: 95%;" placeholder="Сотрудник службы главного сварщика" value="" ></td> 
+                        <td ><input name="kom_fio" type="text" style="width: 95%;" placeholder="Иванов И. И." value="" ></td> 
+                    </tr>
+                    {% endif %}
+                </table> 
+
+
+
+               
+            </fieldset>
+
+
+
+            
+
+            <br>
+            <br>
+
+            <button type="submit">
+                <h3>Оформить акт</h3>
+            </button>
+            <button type="reset">
+                <h3>Отменить изменения</h3>
+            </button>
+        </form>
+
+    </div>
+
+
+
+
+
+
+
+    <script>
+
+
+
+
+
+
+
+
+
+ 
+ function weld_material_plate() {
+    var add_row = document.getElementById("weld_material_plate");
+
+    var new_row = document.createElement("tr");
+
+    var tdFIO = document.createElement("td");
+    let input_FIO = document.createElement("b")
+    input_FIO.innerHTML = `<select name="weld_main_material_plate" value={{ result.weld_main_material_plate }} >{{ result.sposob_svarki }} <option value=""></option> {% for i in weld_main_material_plate %} <option value="{{ i.thickness }} - {{ i.group_of_material }} - {{ i.steel_grade }} - {{i.certificate_number}}"> {{ i.thickness }} - {{ i.group_of_material }} - {{ i.steel_grade }} - {{i.certificate_number}}</option> {% endfor %}`
+
+    tdFIO.appendChild(input_FIO);
+    new_row.appendChild(tdFIO);
+
+    var tdBUTT = document.createElement("td");
+    let element_a = document.createElement("a")
+    element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
+    tdBUTT.appendChild(element_a);
+    new_row.appendChild(tdBUTT);
+
+    
+
+    var dodac = document.getElementById("weld_material_plate");
+    dodac.appendChild(new_row);
+
+    return false;
+}
+
+
+
+weld_material_tube
+function weld_material_tube() {
+    var add_row = document.getElementById("weld_material_tube");
+
+    var new_row = document.createElement("tr");
+
+    var tdFIO = document.createElement("td");
+    let input_FIO = document.createElement("b")
+    input_FIO.innerHTML = `<select name="weld_main_material_tube" value={{ result.weld_main_material_tube }} >{{ result.weld_main_material_tube }} <option value=""></option> {% for i in weld_main_material_tube %} <option value="D{{ i.diameter }}x{{ i.thickness }}мм - {{ i.group_of_material }} - {{ i.steel_grade }} - {{i.certificate_number}}"> D{{ i.diameter }}x{{ i.thickness }}мм - {{ i.group_of_material }} - {{ i.steel_grade }} - {{i.certificate_number}}</option> {% endfor %}`
+
+    tdFIO.appendChild(input_FIO);
+    new_row.appendChild(tdFIO);
+
+    var tdBUTT = document.createElement("td");
+    let element_a = document.createElement("a")
+    element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
+    tdBUTT.appendChild(element_a);
+    new_row.appendChild(tdBUTT);
+
+    
+
+    var dodac = document.getElementById("weld_material_tube");
+    dodac.appendChild(new_row);
+
+    return false;
+}
+
+
+
+
+        function dodajWiersz() {
+            var add_row = document.getElementById("dowolna_nazwa");
+            let c = add_row.querySelectorAll('tr').length;
+            c = --c
+
+
+            var new_row = document.createElement("tr");
+
+            var tdFIO = document.createElement("td");
+            let input_FIO = document.createElement("b")
+            input_FIO.innerHTML = `<input type="text" name="welder_name" size="50" style="width: 290px;" placeholder="Иванов Иван Иванович">`
+
+            tdFIO.appendChild(input_FIO);
+            new_row.appendChild(tdFIO);
+
+            var tdBRAND = document.createElement("td");
+            let input_brand = document.createElement("b")
+            input_brand.innerHTML = `<input type="text" name="welder_brand" size="10" style="width: 100px;">`
+            tdBRAND.appendChild(input_brand);
+            new_row.appendChild(tdBRAND);
+
+            var tdPASSPORT = document.createElement("td");
+            let input_passport = document.createElement("b")
+            input_passport.innerHTML = `<input type="text" name="welder_passport" size="25" style="text-transform: uppercase; width: 220px;" placeholder="КВ 1234567">`
+            tdPASSPORT.appendChild(input_passport);
+            new_row.appendChild(tdPASSPORT);
+
+            var tdDATE = document.createElement("td");
+            let input_date = document.createElement("b")
+            tdDATE.innerHTML = `<input type="text" name="welder_date_birth" style="width: 275px;" placeholder="дд.мм.гггг">`
+            tdBRAND.appendChild(input_date);
+            new_row.appendChild(tdDATE);
+
+            var tdBUTT = document.createElement("td");
+            let element_a = document.createElement("a")
+            element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
+            tdBUTT.appendChild(element_a);
+            new_row.appendChild(tdBUTT);
+
+            var dodac = document.getElementById("dowolna_nazwa");
+            dodac.appendChild(new_row);
+
+            return false;
+        }
+
+
+
+        function rmline(q) {
+            w = q.closest('tr')
+            w.parentElement.removeChild(w)
+            return false;
+        }
+
+    </script>
+{% endblock %}

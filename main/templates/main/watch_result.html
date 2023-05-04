@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %} 
+
+{% block content %}
+
+<p>Имя пользователя: {{ user }}</p>
+<!-- <form action="" method="get">
+        {{ form_search.as_p }}
+        <input type="submit" value="Найти">
+    </form> -->
+
+<h1>{{ title }}</h1>
+
+<h2>
+  {% with result.count as total_result %} Найдено {{ total_result }} {% endwith %}
+</h2>
+
+<table id="result_list">
+  <thead>
+    <tr>
+      <th scope="col" class="sortable column-name">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=name">Ф.И.О.</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-brand">
+        <a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=brand"><div class="text">Клеймо</div></a>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-agency">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=agency">Организация</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-id_card">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=id_card">Удостоверение №</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-date_certification">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=date_certification">Дата аттестации</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-date_validity">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=date_validity">Срок действия</a></div>
+        <div class="clear"></div>
+      </th>
+
+
+      <th scope="col" class="sortable column-method_welding">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=method_welding">Способ сварки</a></div>
+        <div class="clear"></div>
+      </th>
+
+      <th scope="col" class="sortable column-diameter">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=diameter">Диаметр</a></div>
+        <div class="clear"></div>
+      </th>
+      <th scope="col" class="sortable column-thickness">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=thickness">Толщина</a></div>
+        <div class="clear"></div>
+      </th>
+      <th scope="col" class="sortable column-materials">
+        <div class="text"><a href="{{ request.get_path }}?name={{ query_name }}&brand={{ query_brand }}&id_card={{ query_id_card }}&sort=materials">Материалы</a></div>
+        <div class="clear"></div>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    
+
+
+
+    <tr>
+      <td class="field-name">{{ result.name }}</a></td>
+      <td class="field-brand">{{ result.brand }}</td>
+
+      <th class="field-agency nowrap">{{ result.agency }}</th>
+      <td class="field-id_card">{{ result.id_card }}</td>
+      <td class="field-date_certification nowrap">
+        {{ result.date_certification }}
+      </td>
+      
+      <td class="field-date_validity nowrap">
+        срок действия {{ result.date_certification|add:"Y=3" }}
+      </td>
+
+      <td class="field-method_welding">{{ result.method_welding }}</td>
+
+      <td class="field-diameter">{{ result.diameter }}</td>
+      <td class="field-thickness">{{ result.thickness }}</td>
+      <td class="field-materials">{{ result.materials }}</td>
+    </tr>
+
+  </tbody>
+</table>
+<br>
+<a href="{% url 'dopdf' pk=result.pk %}"><button>Справка в PDF</button></a>
+
+{% endblock %}
