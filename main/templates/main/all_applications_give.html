@@ -20,11 +20,13 @@
 
 {% if group == "customer" %} 
 {% for i in result %}
+<br>
 <p>
-  Заявка №{{ i.id }} от {{ i.aplic_date }} --
-  <p> <a href="{% url 'application_update' pk=i.id %}" onclick=""><button class="button orange"></i>Редактировать</button></a> 
-  <a href="{% url 'pdf_application' pk=i.id %}"><button class="button purple">Заявка(PDF)</button></a> 
-  <a href="{% url 'application_del' pk=i.id %}"><button class="button purple">Удалить</button></a> 
+  Заявка №{{ i.id }} от {{ i.aplic_date }} 
+  <p> 
+  <a href="{% url 'application_update' pk=i.id %}" onclick=""><button class="button reda"></i>Редактировать</button></a> 
+  <a href="{% url 'pdf_application' pk=i.id %}"><button class="button pdf_z">Заявка(PDF)</button></a> 
+  <a href="{% url 'application_del' pk=i.id %}"><button class="button udal">Удалить</button></a> 
 </p>
   {% endfor %} 
   {% endif %} 
@@ -34,10 +36,10 @@
   <br>
   <p>
   Заявка №{{ i.id }} от {{ i.aplic_date }} ({{i.user_fio}}) 
-  <p> <a href="{% url 'application_update' pk=i.id %}"><button class="button orange">Редактировать</button></a> 
-  <a href="{% url 'application_confirm' pk=i.id %}"><button class="button blue">Подтвердить</button></a> 
-  <a href="{% url 'application_cancel' pk=i.id %}"><button class="button red">Отменить</button></a> 
-  <a href="{% url 'pdf_application' pk=i.id %}"><button class="button purple">Заявка(PDF)</button></a> 
+  <p> <a href="{% url 'application_update' pk=i.id %}"><button class="button reda">Редактировать</button></a> 
+  <a href="{% url 'application_confirm' pk=i.id %}"><button class="button podtv">Подтвердить</button></a> 
+  <a href="{% url 'application_cancel' pk=i.id %}"><button class="button otm">Отменить</button></a> 
+  <a href="{% url 'pdf_application' pk=i.id %}"><button class="button pdf_z">Заявка(PDF)</button></a> 
 </p>
   {% endfor %} 
   {% endif %}

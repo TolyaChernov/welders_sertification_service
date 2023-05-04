@@ -13,7 +13,7 @@ def render_to_pdf(url_template: str, contexto: dict ={}):
     html = template.render(contexto)
     result = BytesIO()
     pdf = pisa.pisaDocument(
-        BytesIO(html.encode("UTF-16")),
+        BytesIO(html.encode("UTF-8")),
         result,
         encoding="utf-8",
         link_callback=fetch_pdf_resources,
@@ -24,23 +24,19 @@ def render_to_pdf(url_template: str, contexto: dict ={}):
 
 
 def fetch_pdf_resources(uri: str, rel: str):
-    """
-    Description of fetch_pdf_resources
-
-    Args:
-        uri (str):
-        rel (str):
-
-    """
+    print(uri)
     if uri.find(settings.MEDIA_URL) != -1:
+        print('1')
         path = os.path.join(
             settings.MEDIA_ROOT, uri.replace(
                 settings.MEDIA_URL, ""))
     elif uri.find(settings.STATIC_URL) != -1:
+        print('2')
         path = os.path.join(
             settings.STATIC_ROOT, uri.replace(
                 settings.STATIC_URL, ""))
 
     else:
         path = None
+    print(path, "---arial")
     return path

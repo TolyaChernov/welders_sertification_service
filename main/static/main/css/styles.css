@@ -481,15 +481,80 @@ textarea {
 }
 
 .button.blue {
-  background: #57ec63;
+  background: #5eec57;
   color: rgb(0, 0, 0);
 }
 
-.button.red {
-  background: #ef0606;
+
+/* цвета для форм заявок */
+.button.otm {
+  background: #f55757;
   color: rgb(0, 0, 0);
 }
+.button:hover.otm {
+  background: #f7bdbd;
+}
 
+.button.podtv {
+  background: #40c506;
+  color: rgb(0, 0, 0);
+}
+.button:hover.podtv {
+  background: #b6e9a0;
+}
+
+.button.reda {
+  background: #64beee;
+  color: rgb(0, 0, 0);
+}
+.button:hover.reda {
+  background: #a1cbe2;
+}
+
+.button.pdf_z {
+  background: #f6ed03;
+  color: rgb(0, 0, 0);
+}
+.button:hover.pdf_z {
+  background: #fff9b9;
+}
+
+.button.akt {
+  background: #448dec;
+  color: rgb(0, 0, 0);
+}
+.button:hover.akt {
+  background: #81b3e2;
+}
+
+.button.pdf_akt {
+  background: #f08e43;
+  color: rgb(0, 0, 0);
+}
+.button:hover.pdf_akt {
+  background: #ffc293;
+}
+
+.button.pod {
+  background: #9b2af7;
+  color: rgb(0, 0, 0);
+}
+.button:hover.pod {
+  background: #d9b3f8;
+}
+
+.button.udal {
+  background: #f2068c;
+  color: rgb(0, 0, 0);
+}
+.button:hover.udal {
+  background: #f383c2;
+}
+
+
+
+
+/* цвета для форм заявок */
 
 .button.orange {
   background: #db6307;
@@ -518,6 +583,12 @@ textarea {
 .button:hover.purple {
   background: #8f418e;
 }
+
+
+
+
+
+
 
 .button:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
