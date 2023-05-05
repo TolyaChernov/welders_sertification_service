@@ -24,7 +24,6 @@
 
 </style>
 
-{{group}}
 
 
 <p align='center' >ЛИЧНЫЙ КАБИНЕТ ПОЛЬЗОВАТЕЛЯ: {{ user }}
@@ -40,9 +39,9 @@
             <td><a href="{% url 'all_applications_done' %}">ВЫПОЛНЕННЫЕ</a></td>
             <td><a href="{% url 'all_applications_cancel' %}">ОТМЕНЕННЫЕ</a></td>
 
-
+            
             {% if group == "engineer" %}
-            <td><a href="№">МАТЕРИАЛЫ</a></td>
+            <td><a href="{% url 'all_materials' %}">МАТЕРИАЛЫ</a></td>
             {% endif %}
 
 			

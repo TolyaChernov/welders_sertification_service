@@ -31,11 +31,11 @@
     <button class="button akt">Заполнить АКТ</button></a>
   <a href="{% url 'pdf_akt' pk=i.id %}">
     <button class="button pdf_akt">Акт(PDF)</button></a>
-  <a href="{% url 'pdf_application' pk=i.id %}">
-    <button class="button pdf_z">Заявка(PDF)</button></a>
+  <a href="{% url 'application_done' pk=i.id %}">
+    <button class="button vyp">Выполнить</button></a>
   <a href="{% url 'application_cancel' pk=i.id %}">
     <button class="button otm">Отменить</button></a>
-  <a href="{% url 'application_give' pk=i.id %}">
-    <button class="button pod">Подать</button></a>
+  <a href="{% url 'pdf_application' pk=i.id %}">
+    <button class="button pdf_z">Заявка(PDF)</button></a>
 </p>
 {% endfor %} {% endif %} {% endblock %}

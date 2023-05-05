@@ -23,16 +23,19 @@
   <a href="{% url 'pdf_application' pk=i.id %}">
     <button class="button pdf_z">Заявка(PDF)</button></a>
 </p>
-{% endfor %} {% endif %} {% if group == "engineer" %} {% for i in result %}
+{% endfor %} 
+{% endif %} 
+
+{% if group == "engineer" %} 
+{% for i in result %}
 <br />
 <p>Заявка №{{ i.id }} от {{ i.aplic_date }} ({{i.user_fio}})</p>
 
 <p>
-  <a href="{% url 'application_confirm' pk=i.id %}">
-    <button class="button podtv">Подтвердить</button></a>
-  <a href="{% url 'application_cancel' pk=i.id %}">
-    <button class="button otm">Отменить</button></a>
   <a href="{% url 'pdf_application' pk=i.id %}">
     <button class="button pdf_z">Заявка(PDF)</button></a>
+  <a href="{% url 'application_cancel' pk=i.id %}">
+    <button class="button otm">Отменить</button></a>
+ 
 </p>
 {% endfor %} {% endif %} {% endblock %}

@@ -13,9 +13,9 @@ def render_to_pdf(url_template: str, contexto: dict ={}):
     html = template.render(contexto)
     result = BytesIO()
     pdf = pisa.pisaDocument(
-        BytesIO(html.encode("UTF-8")),
+        BytesIO(html.encode("UTF-16")),
         result,
-        encoding="utf-8",
+        encoding="utf-16",
         link_callback=fetch_pdf_resources,
     )
     if not pdf.err:

@@ -42,7 +42,9 @@ urlpatterns = [
         name="all_applications_cancel",
     ),
     path(
-        "application_confirm/<int:pk>/", application_confirm, name="application_confirm"
+        "application_confirm/<int:pk>/", 
+        application_confirm, 
+        name="application_confirm"
     ),
     path(
         "application_give/<int:pk>/",
@@ -56,4 +58,39 @@ urlpatterns = [
         "application_cancel/<int:pk>/",
         application_cancel,
         name="application_cancel"),
+    path(
+        "all_materials/",
+        all_materials,
+        name="all_materials"),
+
+
+    path(
+        "material_plate/",
+        material_plate,
+        name="material_plate"),
+
+
+    path(
+        "material_tube/",
+        material_tube,
+        name="material_tube"),
+
+  
+
+    path(
+        "material_wire/",
+        material_wire,
+        name="material_wire"),
+
+    path(
+        "material_rod/",
+        material_rod,
+        name="material_rod"),
+
+    path(
+        "material_electrode/",
+        material_electrode,
+        name="material_electrode"),
+
+
 ]

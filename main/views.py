@@ -913,3 +913,197 @@ def pdf_akt(request, pk: int):
     result["kom_fio"] = result["kom_fio"].split("| ")
     pdf = render_to_pdf("pdf/pdf_akt.html", data)
     return HttpResponse(pdf, content_type="application/pdf")
+
+
+@login_required(login_url=reverse_lazy("login"))
+def all_materials(request):
+    """
+    Description of all_materials
+
+    Args:
+        request (undefined):
+
+    """
+    title = "Перечень всех материалов"
+    # Определение группы пользователя
+    username = str(request.user)
+    username = str(request.user)
+    if username == "admin":
+        group = "admin"
+    else:
+        user = get_object_or_404(User, username=username)
+        group = str(user.groups.get(user=user.id))
+
+    result = Material_Plate.objects.all().order_by("thickness")
+
+    return render(
+        request,
+        "main/all_materials.html",
+        {
+            "title": title,
+            "result": result,
+            "group": group,
+        },
+    )
+
+#####################################
+@login_required(login_url=reverse_lazy("login"))
+def material_plate(request):
+    """
+    Description of material plate
+
+    Args:
+        request (undefined):
+
+    """
+    title = "Лист"
+    type_mat = "plate"
+    # Определение группы пользователя
+    username = str(request.user)
+    username = str(request.user)
+    if username == "admin":
+        group = "admin"
+    else:
+        user = get_object_or_404(User, username=username)
+        group = str(user.groups.get(user=user.id))
+
+    result = Material_Plate.objects.all().order_by("thickness")
+
+    return render(
+        request,
+        "main/material.html",
+        {
+            "title": title,
+            "result": result,
+            "group": group,
+            "type_mat": type_mat,
+        },
+    )
+
+@login_required(login_url=reverse_lazy("login"))
+def material_tube(request):
+    """
+    Description of material tube
+
+    Args:
+        request (undefined):
+
+    """
+    title = "Труба"
+    type_mat = "tube"
+    # Определение группы пользователя
+    username = str(request.user)
+    if username == "admin":
+        group = "admin"
+    else:
+        user = get_object_or_404(User, username=username)
+        group = str(user.groups.get(user=user.id))
+
+    result = Material_Tube.objects.all().order_by("diameter")
+
+    return render(
+        request,
+        "main/material.html",
+        {
+            "title": title,
+            "result": result,
+            "group": group,
+            "type_mat": type_mat,
+        },
+    )
+
+@login_required(login_url=reverse_lazy("login"))
+def material_electrode(request):
+    """
+    Description of material tube
+
+    Args:
+        request (undefined):
+
+    """
+    title = "Электрод"
+    type_mat = "weld"
+    # Определение группы пользователя
+    username = str(request.user)
+    if username == "admin":
+        group = "admin"
+    else:
+        user = get_object_or_404(User, username=username)
+        group = str(user.groups.get(user=user.id))
+
+    result = Material_Electrode.objects.all().order_by("diameter")
+
+    return render(
+        request,
+        "main/material.html",
+        {
+            "title": title,
+            "result": result,
+            "group": group,
+            "type_mat": type_mat,
+        },
+    )
+
+@login_required(login_url=reverse_lazy("login"))
+def material_rod(request):
+    """
+    Description of material tube
+
+    Args:
+        request (undefined):
+
+    """
+    title = "Пруток"
+    type_mat = "weld"
+    # Определение группы пользователя
+    username = str(request.user)
+    if username == "admin":
+        group = "admin"
+    else:
+        user = get_object_or_404(User, username=username)
+        group = str(user.groups.get(user=user.id))
+
+    result = Material_Rod.objects.all().order_by("diameter")
+
+    return render(
+        request,
+        "main/material.html",
+        {
+            "title": title,
+            "result": result,
+            "group": group,
+            "type_mat": type_mat,
+        },
+    )
+
+@login_required(login_url=reverse_lazy("login"))
+def material_wire(request):
+    """
+    Description of material tube
+
+    Args:
+        request (undefined):
+
+    """
+    title = "Проволока"
+    type_mat = "weld"
+    # Определение группы пользователя
+    username = str(request.user)
+    if username == "admin":
+        group = "admin"
+    else:
+        user = get_object_or_404(User, username=username)
+        group = str(user.groups.get(user=user.id))
+
+    result = Material_Wire.objects.all().order_by("diameter")
+
+    return render(
+        request,
+        "main/material.html",
+        {
+            "title": title,
+            "result": result,
+            "group": group,
+            "type_mat": type_mat,
+        },
+    )

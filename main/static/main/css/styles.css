@@ -504,11 +504,11 @@ textarea {
 }
 
 .button.reda {
-  background: #64beee;
+  background: #7acdf9;
   color: rgb(0, 0, 0);
 }
 .button:hover.reda {
-  background: #a1cbe2;
+  background: #c1e5f8;
 }
 
 .button.pdf_z {
@@ -536,7 +536,7 @@ textarea {
 }
 
 .button.pod {
-  background: #9b2af7;
+  background: #c58af5;
   color: rgb(0, 0, 0);
 }
 .button:hover.pod {
@@ -551,7 +551,13 @@ textarea {
   background: #f383c2;
 }
 
-
+.button.vyp {
+  background: #57f4ef;
+  color: rgb(0, 0, 0);
+}
+.button:hover.vyp {
+  background: #cffbfa;
+}
 
 
 /* цвета для форм заявок */
