@@ -12,7 +12,21 @@
 </style>
 <br /><br />
 <h2><p class="center">Перечень всех материалов</p></h2>
-<br /><br />
+<table style="width: 100%;" border="0" cellspacing=0 cellpadding=0>
+  <tbody>
+    <tr>
+      <td style="width: 25%; text-align: center"><h3>Основной материал:</h3></td>
+      <td style="width: 5%; text-align: center"><a href="{% url 'material_plate' %}"><button class="button pdf_z"><h4>ЛИСТ</h4></button></a></td>
+      <td style="width: 5%; text-align: center"><a href="{% url 'material_tube' %}"><button class="button pdf_z"><h4>ТРУБА</h4></button></a></td>
+      <td style="width: 10%; text-align: center"><h4></h4></td>
+      <td style="width: 25%; text-align: center"><h3>Сварочный материал</h3></td>
+      <td style="width: 10%; text-align: center"><a href="{% url 'material_electrode' %}"><button class="button pdf_z"><h4>ЭЛЕКТРОД</h4></button></a></td>
+      <td style="width: 10%; text-align: center"><a href="{% url 'material_rod' %}"><button class="button pdf_z"><h4>ПРУТОК</h4></button></a></td>
+      <td style="width: 10%; text-align: center"><a href="{% url 'material_wire' %}"><button class="button pdf_z"><h4>ПРОВОЛОКА</h4></button></a></td>
+    </tr>
+  </tbody>
+</table>
+<br />
 
 <h2><p class="center">{{title}}</p></h2>
 
