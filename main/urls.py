@@ -1,16 +1,15 @@
 from django.urls import path
+
+from .views import *
+
 # from drf_yasg import openapi  # new
 # from drf_yasg.views import get_schema_view  # new
 
-
-from .views import *
 
 urlpatterns = [
     path("", index, name="index"),
     path("add_application/", add_application, name="add_application"),
     path("private_office/", private_office, name="private_office"),
-    path("test_card/", test_card, name="test_card"),
-    # path("all_applications/", all_applications, name="all_applications"),
     path(
         "application/<int:pk>/update/",
         application_update,
@@ -56,4 +55,10 @@ urlpatterns = [
         "application_cancel/<int:pk>/",
         application_cancel,
         name="application_cancel"),
+    path("all_materials/", all_materials, name="all_materials"),
+    path("material_plate/", material_plate, name="material_plate"),
+    path("material_tube/", material_tube, name="material_tube"),
+    path("material_wire/", material_wire, name="material_wire"),
+    path("material_rod/", material_rod, name="material_rod"),
+    path("material_electrode/", material_electrode, name="material_electrode"),
 ]

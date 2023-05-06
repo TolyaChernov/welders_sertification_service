@@ -1,21 +1,22 @@
 import os
 from io import BytesIO
-
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-
 from ptm import settings
 
 
-def render_to_pdf(url_template, contexto={}):
+def render_to_pdf(url_template: str, contexto: dict = {}):
+    '''
+    Рендер html страницы в формат pdf
+    '''
     template = get_template(url_template)
     html = template.render(contexto)
     result = BytesIO()
     pdf = pisa.pisaDocument(
         BytesIO(html.encode("UTF-16")),
         result,
-        encoding="utf-8",
+        encoding="utf-16",
         link_callback=fetch_pdf_resources,
     )
     if not pdf.err:
@@ -23,7 +24,11 @@ def render_to_pdf(url_template, contexto={}):
     return None
 
 
-def fetch_pdf_resources(uri, rel):
+def fetch_pdf_resources(uri: str, rel: str):
+    '''
+    Получение полного адреса
+    '''
+    print(uri)
     if uri.find(settings.MEDIA_URL) != -1:
         path = os.path.join(
             settings.MEDIA_ROOT, uri.replace(
@@ -32,8 +37,6 @@ def fetch_pdf_resources(uri, rel):
         path = os.path.join(
             settings.STATIC_ROOT, uri.replace(
                 settings.STATIC_URL, ""))
-
     else:
         path = None
-    print(path, "+++++++++++++++")
     return path

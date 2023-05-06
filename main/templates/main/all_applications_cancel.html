@@ -1,5 +1,4 @@
-{% extends 'main/private_office_s1.html' %} 
-{% block content_1 %}
+{% extends 'main/private_office_s1.html' %} {% block content_1 %}
 
 <style>
   div {
@@ -14,28 +13,22 @@
 
 <br /><br />
 
-
 <h2><p class="center">Заявки отмененные</p></h2>
 
-{% if group == "customer" %}
-{% for i in result %}
-<p>Заявка №{{ i.id }} от {{ i.aplic_date }} -- 
-    <a href="{% url 'pdf_application' pk=i.id %}">Заявка в PDF</a>
- {% endfor %} 
- {% endif %}
-
-
- {% if group == "engineer" %}
-{% for i in result %}
-<p>Заявка №{{ i.id }} от {{ i.aplic_date }} ({{i.user_fio}}) -- 
-    <a href="{% url 'application_give' pk=i.id %}">Подать</a> -- 
-    <a href="{% url 'pdf_application' pk=i.id %}">Заявка(PDF)</a>
- {% endfor %} 
- {% endif %}
-
-
-
-
-
-
-{% endblock %}
+{% if group == "customer" %} {% for i in result %}
+<br />
+<p>Заявка №{{ i.id }} от {{ i.aplic_date }}</p>
+<p>
+  <a href="{% url 'pdf_application' pk=i.id %}">
+    <button class="button pdf_z">Заявка(PDF)</button></a>
+</p>
+{% endfor %} {% endif %} {% if group == "engineer" %} {% for i in result %}
+<br />
+<p>Заявка №{{ i.id }} от {{ i.aplic_date }} ({{i.user_fio}})</p>
+<p>
+  <a href="{% url 'application_give' pk=i.id %}">
+    <button class="button pod">Подать</button></a>
+  <a href="{% url 'pdf_application' pk=i.id %}">
+    <button class="button pdf_z">Заявка(PDF)</button></a>
+</p>
+{% endfor %} {% endif %} {% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'main/private_office_s1.html' %} {% block content_1 %}
+
+<style>
+  div {
+    width: 650px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 150px;
+  }
+</style>
+
+<br /><br />
+
+<h2><p class="center">{{title}}</p></h2>
+
+{% if group == "engineer" %}
+
+
+<table style="width: 100%;" border="0" cellspacing=0 cellpadding=0>
+  <tbody>
+    <tr>
+      <td style="width: 25%; text-align: center"><h3>Основной материал:</h3></td>
+      <td style="width: 5%; text-align: center"><a href="{% url 'material_plate' %}"><button class="button pdf_z"><h4>ЛИСТ</h4></button></a></td>
+      <td style="width: 5%; text-align: center"><a href="{% url 'material_tube' %}"><button class="button pdf_z"><h4>ТРУБА</h4></button></a></td>
+      <td style="width: 10%; text-align: center"><h4></h4></td>
+      <td style="width: 25%; text-align: center"><h3>Сварочный материал</h3></td>
+      <td style="width: 10%; text-align: center"><a href="{% url 'material_electrode' %}"><button class="button pdf_z"><h4>ЭЛЕКТРОД</h4></button></a></td>
+      <td style="width: 10%; text-align: center"><a href="{% url 'material_rod' %}"><button class="button pdf_z"><h4>ПРУТОК</h4></button></a></td>
+      <td style="width: 10%; text-align: center"><a href="{% url 'material_wire' %}"><button class="button pdf_z"><h4>ПРОВОЛОКА</h4></button></a></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+{% comment %} <table style="width: 100%; text-align: center" border="1" >
+  <tbody>
+    <tr>
+      <td style="width: 100%; text-align: center">
+        
+        
+
+        <table style="width: 100%;" border="0" cellspacing=0 cellpadding=0>
+            <tbody>
+              <tr>
+                <td style="width: 25%; text-align: center"><h3>Основной материал:</h3></td>
+                <td style="width: 8%; text-align: center"><a href="{% url 'material_plate' %}"><button class="button pdf_z"><h4>ЛИСТ</h4></button></a></td>
+                <td style="width: 8%; text-align: center"><a href="{% url 'material_tube' %}"><button class="button pdf_z"><h4>ТРУБА</h4></button></a></td>
+                <td style="text-align: center"><h4></h4></td>
+              </tr>
+            </tbody>
+          </table>
+
+    </td>
+    </tr>
+
+
+    <tr>
+      <td style="width: 100%; text-align: center">
+        <br>
+
+        <table style="width: 100%;" border="0" cellspacing=0 cellpadding=0>
+            <tbody>
+              <tr>
+                <td style="width: 25%; text-align: center"><h3>Сварочный материал</h3></td>
+                <td style="width: 10%; text-align: center"><a href="{% url 'material_electrode' %}"><button class="button pdf_z"><h4>ЭЛЕКТРОД</h4></button></a></td>
+                <td style="width: 10%; text-align: center"><a href="{% url 'material_rod' %}"><button class="button pdf_z"><h4>ПРУТОК</h4></button></a></td>
+                <td style="width: 10%; text-align: center"><a href="{% url 'material_wire' %}"><button class="button pdf_z"><h4>ПРОВОЛОКА</h4></button></a></td>
+                <td style="text-align: center"><h4></h4></td>
+              </tr>
+            </tbody>
+          </table>
+
+    </td>
+    </tr>
+
+      
+    
+  </tbody>
+</table> {% endcomment %}
+
+
+ {% endif %} 
+ {% endblock %}
