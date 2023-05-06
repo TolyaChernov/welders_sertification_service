@@ -2,6 +2,7 @@ start_mint: #start on linux mint
 	python3 -m venv .venv
 	.venv/bin/python3 -m pip install --upgrade pip
 	.venv/bin/pip install -r requirements.txt
+	.venv/bin/python3 manage.py runserver
 
 
 
