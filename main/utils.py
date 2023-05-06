@@ -1,14 +1,15 @@
 import os
 from io import BytesIO
-
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-
 from ptm import settings
 
 
-def render_to_pdf(url_template: str, contexto: dict ={}):
+def render_to_pdf(url_template: str, contexto: dict = {}):
+    '''
+    Рендер html страницы в формат pdf
+    '''
     template = get_template(url_template)
     html = template.render(contexto)
     result = BytesIO()
@@ -24,19 +25,18 @@ def render_to_pdf(url_template: str, contexto: dict ={}):
 
 
 def fetch_pdf_resources(uri: str, rel: str):
+    '''
+    Получение полного адреса
+    '''
     print(uri)
     if uri.find(settings.MEDIA_URL) != -1:
-        print('1')
         path = os.path.join(
             settings.MEDIA_ROOT, uri.replace(
                 settings.MEDIA_URL, ""))
     elif uri.find(settings.STATIC_URL) != -1:
-        print('2')
         path = os.path.join(
             settings.STATIC_ROOT, uri.replace(
                 settings.STATIC_URL, ""))
-
     else:
         path = None
-    print(path, "---arial")
     return path

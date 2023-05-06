@@ -1,24 +1,20 @@
-from .utils import render_to_pdf
-from django.http import HttpResponse
-from django.db.models import Q
 import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User  # , Group
+from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 
 from .forms import *
 from .models import *  # Application, Welding_method, Aplic_status
+from .utils import render_to_pdf
 
 
 def index(request):
     """
-    Description of index
-
-    Args:
-        request (undefined):
-
+    Запуск главной страницы
     """
     title = "Главная"
     # Определение группы пользователя
@@ -42,11 +38,7 @@ def index(request):
 @login_required(login_url=reverse_lazy("login"))
 def add_application(request):
     """
-    Description of add_application
-
-    Args:
-        request (undefined):
-
+    Запуск страницы Подать заявку
     """
     title = "Заявка"
 
@@ -59,6 +51,7 @@ def add_application(request):
         group = str(user.groups.get(user=user.id))
 
     if request.method == "POST":
+        # список параметров для добавления новой заявки
         list_name_param = [
             "user_fio",
             "user_telephon",
@@ -110,6 +103,7 @@ def add_application(request):
         list_param = []
         result = dict(request.POST)
         application = Application()
+        # форматирование значения для добавления в БД
         for i in range(len(list_name_param)):
             name_param = list_name_param[i]
             try:
@@ -122,7 +116,7 @@ def add_application(request):
             param = param.replace("',", "|")
             param = param.replace("'", "")
             list_param.append(param)
-
+        # добавление в БД
         application.aplic_user = User.objects.get(username=username)
         application.aplic_status = Aplic_status.objects.get(aplic_num=1)
         application.user_fio = list_param[0]
@@ -195,14 +189,9 @@ def add_application(request):
 @login_required(login_url=reverse_lazy("login"))
 def private_office(request):
     """
-    Description of private_office
-
-    Args:
-        request (undefined):
-
+    Запуск страницы Кабинет
     """
     title = "Личный кабинет"
-
     username = str(request.user)
     if username == "admin":
         group = "admin"
@@ -230,118 +219,13 @@ def private_office(request):
         )
 
 
-def test_card(request):
-    """
-    Description of test_card
-
-    Args:
-        request (undefined):
-
-    """
-    title = "Проверка удостоверения"
-
-    form = SearchForm()
-    from django.db.models import Q
-
-    message = ""
-    title = "Результаты поиска"
-    result = []
-    if request.method == "GET":
-        query_name = request.GET.get("welder_name", "")
-        query_brand = request.GET.get("welder_brand", "")
-        query_id_card = request.GET.get("welder_card_id", "")
-
-        if query_name == query_brand == query_id_card == "":
-            message = "ВНИМАНИЕ: Заполните одно из полей"
-            return render(
-                request,
-                "main/test_card.html",
-                {
-                    "title": title,
-                    "form": form,
-                },
-            )
-        else:
-            result = Application.objects.filter(
-                Q(welder_name__icontains=query_name)
-                & Q(welder_brand__icontains=query_brand)
-                | Q(welder_card_id__icontains=query_id_card)
-            )
-
-
-            return render(
-                request,
-                "main/test_card.html",
-                {
-                    "title": title,
-                    "result": result,
-                    "form": form,
-                    "query_name": query_name,
-                    "query_brand": query_brand,
-                    "query_id_card": query_id_card,
-                    "message": message,
-                },
-            )
-
-    return render(
-        request,
-        "main/test_card.html",
-        {
-            "title": title,
-            "form": form,
-        },
-    )
-
-
-@login_required(login_url=reverse_lazy("login"))
-def all_applications(request):
-    """
-    Description of all_applications
-
-    Args:
-        request (undefined):
-
-    """
-    title = "Заявка"
-
-    # Определение группы пользователя
-    username = str(request.user)
-    username = str(request.user)
-    if username == "admin":
-        group = "admin"
-    else:
-        user = get_object_or_404(User, username=username)
-        group = str(user.groups.get(user=user.id))
-
-    result = Application.objects.filter(aplic_user_id=request.user.id).order_by(
-        "-aplic_date"
-    )
-
-    return render(
-        request,
-        "main/all_applications.html",
-        {
-            "title": title,
-            "result": result,
-            "group": group,
-        },
-    )
-
-
-
 @login_required(login_url=reverse_lazy("login"))
 def all_applications_give(request):
     """
-    Description of all_applications_give
-
-    Args:
-        request (undefined):
-
+    Запуск страницы все поданные заявки
     """
     title = "Заявки поданные"
-
     # Определение группы пользователя
-    username = str(request.user)
     username = str(request.user)
     if username == "admin":
         group = "admin"
@@ -371,16 +255,11 @@ def all_applications_give(request):
 @login_required(login_url=reverse_lazy("login"))
 def all_applications_confirm(request):
     """
-    Description of all_applications_confirm
-
-    Args:
-        request (undefined):
-
+    Запуск страницы все подтвержденные заявки
     """
     title = "Заявки подтвержденные"
 
     # Определение группы пользователя
-    username = str(request.user)
     username = str(request.user)
     if username == "admin":
         group = "admin"
@@ -410,15 +289,10 @@ def all_applications_confirm(request):
 @login_required(login_url=reverse_lazy("login"))
 def all_applications_cancel(request):
     """
-    Description of all_applications_cancel
-
-    Args:
-        request (undefined):
-
+    Запуск страницы все отмененные заявки
     """
     title = "Заявки отмененные"
     # Определение группы пользователя
-    username = str(request.user)
     username = str(request.user)
     if username == "admin":
         group = "admin"
@@ -447,15 +321,10 @@ def all_applications_cancel(request):
 @login_required(login_url=reverse_lazy("login"))
 def all_applications_done(request):
     """
-    Description of all_applications_done
-
-    Args:
-        request (undefined):
-
+    Запуск страницы все выполненные заявки
     """
     title = "Заявки выполненные"
     # Определение группы пользователя
-    username = str(request.user)
     username = str(request.user)
     if username == "admin":
         group = "admin"
@@ -484,12 +353,7 @@ def all_applications_done(request):
 @login_required(login_url=reverse_lazy("login"))
 def application_update(request, pk: int):
     """
-    Description of application_update
-
-    Args:
-        request (undefined):
-        pk (int):
-
+    Запуск страницы для редактирования заявки
     """
     title = "Редактирование заявки"
     username = str(request.user)
@@ -499,8 +363,8 @@ def application_update(request, pk: int):
         user = get_object_or_404(User, username=username)
         group = str(user.groups.get(user=user.id))
     result = Application.objects.filter(pk=pk).first()
-    # Список сварщиков для application_update.html
-    list = []
+    # Список список из несколькоих параметров для отображения на
+    # application_update.html
     welder_name = result.welder_name
     welder_name = welder_name.split("| ")
     welder_brand = result.welder_brand
@@ -565,6 +429,7 @@ def application_update(request, pk: int):
         "welder_passport",
         "welder_date_birth",
     ]
+    # запись изменений в БД
     if request.method == "POST":
         list_param = []
         result = dict(request.POST)
@@ -640,7 +505,7 @@ def application_update(request, pk: int):
         application.welder_date_birth = list_param[45]
         application.save()
         return redirect("all_applications_give")
-    
+
     return render(
         request,
         "main/application_update.html",
@@ -656,12 +521,7 @@ def application_update(request, pk: int):
 @login_required(login_url=reverse_lazy("login"))
 def application_complete_akt(request, pk: int):
     """
-    Description of application_complete_akt
-
-    Args:
-        request (undefined):
-        pk (int):
-
+    Запуск страницы для заполнения акта
     """
     title = "Редактирование заявки"
     username = str(request.user)
@@ -671,7 +531,6 @@ def application_complete_akt(request, pk: int):
         user = get_object_or_404(User, username=username)
         group = str(user.groups.get(user=user.id))
     result = Application.objects.filter(pk=pk).first()
-
     list = []
     try:
         list_kom_pos = (result.kom_pos).split("| ")
@@ -700,7 +559,7 @@ def application_complete_akt(request, pk: int):
     weld_main_material_tube = Material_Tube.objects.all().order_by(
         "diameter", "group_of_material"
     )
-
+    # запись данных для акта в БД
     if request.method == "POST":
         list_name_param = [
             "start_date",
@@ -758,9 +617,11 @@ def application_complete_akt(request, pk: int):
     )
 
 
-
 @login_required(login_url=reverse_lazy("login"))
 def application_del(request, pk: int):
+    """
+    Удаление заявки
+    """
     application = get_object_or_404(Application, pk=pk)
     application.delete()
     return redirect("all_applications_give")
@@ -768,6 +629,9 @@ def application_del(request, pk: int):
 
 @login_required(login_url=reverse_lazy("login"))
 def application_confirm(request, pk: int):
+    """
+    Установка для статуса подтверждена
+    """
     application = get_object_or_404(Application, pk=pk)
     application.aplic_status = Aplic_status.objects.get(aplic_num=2)
     application.save()
@@ -776,6 +640,9 @@ def application_confirm(request, pk: int):
 
 @login_required(login_url=reverse_lazy("login"))
 def application_give(request, pk: int):
+    """
+    Установка для статуса подана
+    """
     application = get_object_or_404(Application, pk=pk)
     application.aplic_status = Aplic_status.objects.get(aplic_num=1)
     application.save()
@@ -784,6 +651,9 @@ def application_give(request, pk: int):
 
 @login_required(login_url=reverse_lazy("login"))
 def application_done(request, pk: int):
+    """
+    Установка для статуса выполнена
+    """
     application = get_object_or_404(Application, pk=pk)
     application.aplic_status = Aplic_status.objects.get(aplic_num=4)
     application.save()
@@ -792,6 +662,9 @@ def application_done(request, pk: int):
 
 @login_required(login_url=reverse_lazy("login"))
 def application_cancel(request, pk: int):
+    """
+    Установка для статуса отменена
+    """
     application = get_object_or_404(Application, pk=pk)
     application.aplic_status = Aplic_status.objects.get(aplic_num=3)
     application.save()
@@ -800,6 +673,9 @@ def application_cancel(request, pk: int):
 
 @login_required(login_url=reverse_lazy("login"))
 def pdf_application(request, pk: int):
+    """
+    Формирование заявки в формате pdf
+    """
     result = Application.objects.get(pk=pk).__dict__
     welder_name = (str(result["welder_name"])).split("|")
     welder_brand = (str(result["welder_brand"])).split("|")
@@ -837,16 +713,17 @@ def pdf_application(request, pk: int):
         + " "
         + str(Welding_method.objects.get(id=result["sposob_svarki_id"]).weld_short)
     )
-
     data = {}
     data = result
-
     pdf = render_to_pdf("pdf/invoice.html", data)
     return HttpResponse(pdf, content_type="application/pdf")
 
 
 @login_required(login_url=reverse_lazy("login"))
 def pdf_akt(request, pk: int):
+    """
+    Формирование акта в формате pdf
+    """
     result = Application.objects.get(pk=pk).__dict__
     welder_name = (str(result["welder_name"])).split("|")
     welder_brand = (str(result["welder_brand"])).split("|")
@@ -918,15 +795,10 @@ def pdf_akt(request, pk: int):
 @login_required(login_url=reverse_lazy("login"))
 def all_materials(request):
     """
-    Description of all_materials
-
-    Args:
-        request (undefined):
-
+    Запуск страницы материалы
     """
     title = "Перечень всех материалов"
     # Определение группы пользователя
-    username = str(request.user)
     username = str(request.user)
     if username == "admin":
         group = "admin"
@@ -946,20 +818,16 @@ def all_materials(request):
         },
     )
 
+
 #####################################
 @login_required(login_url=reverse_lazy("login"))
 def material_plate(request):
     """
-    Description of material plate
-
-    Args:
-        request (undefined):
-
+    Запуск страницы материалы лист
     """
     title = "Лист"
     type_mat = "plate"
     # Определение группы пользователя
-    username = str(request.user)
     username = str(request.user)
     if username == "admin":
         group = "admin"
@@ -980,14 +848,11 @@ def material_plate(request):
         },
     )
 
+
 @login_required(login_url=reverse_lazy("login"))
 def material_tube(request):
     """
-    Description of material tube
-
-    Args:
-        request (undefined):
-
+    Запуск страницы материалы труба
     """
     title = "Труба"
     type_mat = "tube"
@@ -1012,14 +877,11 @@ def material_tube(request):
         },
     )
 
+
 @login_required(login_url=reverse_lazy("login"))
 def material_electrode(request):
     """
-    Description of material tube
-
-    Args:
-        request (undefined):
-
+    Запуск страницы материалы электрод
     """
     title = "Электрод"
     type_mat = "weld"
@@ -1044,14 +906,11 @@ def material_electrode(request):
         },
     )
 
+
 @login_required(login_url=reverse_lazy("login"))
 def material_rod(request):
     """
-    Description of material tube
-
-    Args:
-        request (undefined):
-
+    Запуск страницы материалы пруток
     """
     title = "Пруток"
     type_mat = "weld"
@@ -1076,14 +935,11 @@ def material_rod(request):
         },
     )
 
+
 @login_required(login_url=reverse_lazy("login"))
 def material_wire(request):
     """
-    Description of material tube
-
-    Args:
-        request (undefined):
-
+    Запуск страницы материалы проволока
     """
     title = "Проволока"
     type_mat = "weld"
