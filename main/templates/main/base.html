@@ -19,7 +19,6 @@
       {% if user.is_authenticated %}
       <ul class="header-menu">
         <li><a href="{% url 'index' %}">Главная</a></li>
-        {% comment %} <li><a href="{% url 'test_card' %}">Проверить удостоверение</a></li> {% endcomment %}
         <li><a href="{% url 'private_office' %}">Кабинет</a></li>
         <li><a href={% url 'change' %}>СМЕНИТЬ ПАРОЛЬ</a></li>
         <li><a href={% url 'logout' %}>ВЫЙТИ</a><li>
@@ -28,15 +27,13 @@
       {% else %}
       <ul class="header-menu">
         <li><a href="{% url 'index' %}">Главная</a></li>
-        {% comment %} <li><a href="{% url 'test_card' %}">Проверить удостоверение</a></li> {% endcomment %}
         <li><a href={% url 'register' %}>Регистрация</a></li>
         <li><a href={% url 'login' %}>Авторизация</a></li>
       </ul>
       {% endif %} 
 
-      {% comment %} <p>Имя пользователя: {{ user }}</p>
-      <p>Группа пользователя: {{ group }}</p> {% endcomment %}
-      {% block content %} {% endblock %}
+      {% block content %} 
+      {% endblock %}
     </div>
   </body>
 </html>

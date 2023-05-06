@@ -17,10 +17,12 @@ import debug_toolbar
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+
+from ptm import settings
+
 # from drf_yasg import openapi  # new
 # from drf_yasg.views import get_schema_view  # new
 
-from ptm import settings
 
 # from .views import *
 
