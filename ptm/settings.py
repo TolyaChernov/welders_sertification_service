@@ -255,6 +255,7 @@ LOGGING = {
 # CELERY_RESULT_BACKEND = "redis://my_redis:6379"
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025

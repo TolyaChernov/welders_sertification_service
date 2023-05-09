@@ -4,36 +4,19 @@ from django.dispatch import receiver
 
 from main.models import User
 
-# @receiver(post_save, sender=User)
-# def add_score(instance, **kwargs):
-#     profile = instance.category
-#     num = User.objects.filter(category__title=instance.category)
-#     profile.score = num.count()
-#     profile.save()
-
-
-# @receiver(post_delete, sender=User)
-# def del_score(instance, **kwargs):
-#     profile = instance.category
-#     # profile.score -= 1
-#     # profile.save()
-#     num = User.objects.filter(category__title=instance.category)
-#     profile.score = num.count()
-#     profile.save()
-
 
 @receiver(post_save, sender=User)
 def create_user_profile(instance, **kwargs):
     # if created:
-    print(
-        "*****************************************************************************************************************************************************************************************************************************************************************"
-    )
+    # print(
+    #     "*****************************************************************************************************************************************************************************************************************************************************************"
+    # )
     a = list(instance.groups.all())
-    print(a)
+    # print(a)
     if len(a) == 0:
         instance.groups.add(Group.objects.get(name="customer"))
     a = list(instance.groups.all())
-    print(a)
-    print(
-        "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-    )
+    # print(a)
+    # print(
+        # "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+    # )
