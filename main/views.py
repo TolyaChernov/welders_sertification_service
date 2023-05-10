@@ -552,7 +552,18 @@ def application_complete_akt(request, pk: int):
         default.append(list_kom_fio[i])
         list.append(default)
 
-    weld_material = Material_Electrode.objects.all()
+    # print(str(result.sposob_svarki), type(str(result.sposob_svarki)), '***********************************')
+
+    sposob_swarki = str(result.sposob_svarki)
+    if sposob_swarki == 'SMAW':
+        weld_material = Material_Electrode.objects.all()
+    elif sposob_swarki == 'MAG' or sposob_swarki == 'SAW':
+        weld_material = Material_Rod.objects.all()
+    elif sposob_swarki == 'TIG':
+        weld_material = Material_Wire.objects.all()
+
+
+
     weld_main_material_plate = Material_Plate.objects.all().order_by(
         "thickness", "group_of_material"
     )

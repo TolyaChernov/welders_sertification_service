@@ -24,24 +24,24 @@
 
 </style>
 
-
-
+<br>
+<br>
 <p align='center' >ЛИЧНЫЙ КАБИНЕТ ПОЛЬЗОВАТЕЛЯ: {{ user }}
 <table class="menu_1">
 	<tbody>
 		<tr>
             {% if group == "customer" %}
-			<td><a href="{% url 'add_application' %}">ПОДАТЬ ЗАЯВКУ</a></td>
+			<td style="text-align: center"><a href="{% url 'add_application' %}"><button class="button pdf_z">ПОДАТЬ ЗАЯВКУ</button></a></td>
             {% endif %}
 
-            <td><a href="{% url 'all_applications_give' %}">ПОДАННЫЕ</a></td>
-			<td><a href="{% url 'all_applications_confirm' %}">ПОДТВЕРЖДЕННЫЕ</a></td>
-            <td><a href="{% url 'all_applications_done' %}">ВЫПОЛНЕННЫЕ</a></td>
-            <td><a href="{% url 'all_applications_cancel' %}">ОТМЕНЕННЫЕ</a></td>
+            <td style="text-align: center; font-size="25px" "><a href="{% url 'all_applications_give' %}"><button class="button pod">ПОДАННЫЕ</button></a></td>
+			<td style="text-align: center"><a href="{% url 'all_applications_confirm' %}"><button class="button podtv">ПОДТВЕРЖДЕННЫЕ</button></a></td>
+            <td style="text-align: center"><a href="{% url 'all_applications_done' %}"><button class="button vyp">ВЫПОЛНЕННЫЕ</button></a></td>
+            <td style="text-align: center"><a href="{% url 'all_applications_cancel' %}"><button class="button otm">ОТМЕНЕННЫЕ</button></a></td>
 
             
             {% if group == "engineer" %}
-            <td><a href="{% url 'all_materials' %}">МАТЕРИАЛЫ</a></td>
+            <td style="text-align: center"><a href="{% url 'material_plate' %}"><button class="button pdf_z">МАТЕРИАЛЫ</button></a></td>
             {% endif %}
 
 			
@@ -56,21 +56,3 @@
 {% endblock %}
 
 {% endblock %}
-
-<!-- <div class="tabs">
-        <div class="tabs-btns">
-            <div class="tabs-btn" data-tab=".tab-1">
-                <a href="?sort=name">Имя (возр)</a>
-            </div>
-            <div class="tabs-btn" data-tab=".tab-1">
-                <a href="?sort=-name">Имя (убыв)</a>
-            </div>
-            <div class="tabs-btn" data-tab=".tab-1">
-                <a href="?sort=price">Цена (возр)</a>
-            </div>
-            <div class="tabs-btn" data-tab=".tab-1">
-                <a href="?sort=-price">Цена (убыв)</a>
-            </div>
-        </div>
-    </div>
-</div> -->
