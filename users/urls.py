@@ -34,7 +34,8 @@ urlpatterns = [
     path("register/", register, name="register"),
     path(
         "password-reset/",
-        PasswordResetView.as_view(template_name="users/password_reset.html", form_class = ResetPasswordUserForm),
+        PasswordResetView.as_view(template_name="users/password_reset.html", 
+        form_class = ResetPasswordUserForm, success_url=reverse_lazy('password_reset_done'),),
         name="password-reset",
     ),
     path(

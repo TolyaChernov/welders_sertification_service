@@ -34,6 +34,23 @@ migrate:
 
 	
 
+# Запуск Селери
+	python manage.py runserver
+	python -m celery -A storegame worker -l info -P gevent
+	python -m celery -A storegame flower --port=5555
+
+# селери-бит
+	celery -A storegame beat
+
+# smtp сервер
+	python -m smtpd -n -c DebuggingServer localhost:1025
+
+
+# Импорт экспорт БД
+	python manage.py dumpdata --exclude auth.permission > db.json
+	python manage.py loaddata --exclude contenttypes> db.json
+
+
 
 
 
