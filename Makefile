@@ -51,6 +51,7 @@ migrate:
 	python manage.py loaddata --exclude contenttypes> db.json
 
 # docker
+	docker build --pull --rm -f "Dockerfile" -t wss:latest "."
 	docker run -p 8000:8000 wss
 	docker-compose up --build 
 
