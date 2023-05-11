@@ -485,7 +485,7 @@ class Application(models.Model):
     start_date = models.CharField(
         max_length=2000,
         null=True,
-        default='NULL',
+        default="NULL",
         verbose_name="Дата начала контроля",
     )
 
