@@ -22,6 +22,8 @@
 <p>
   <a href="{% url 'pdf_application' pk=i.id %}">
     <button class="button pdf_z">Заявка(PDF)</button></a>
+  <a href="{% url 'pdf_akt' pk=i.id %}">
+    <button class="button pdf_akt">Акт(PDF)</button></a>
 </p>
 {% endfor %} {% endif %} {% if group == "engineer" %} {% for i in result %}
 <br />

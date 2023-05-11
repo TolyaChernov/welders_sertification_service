@@ -12,7 +12,7 @@ lint: #format
 	black .
 	isort .
 	autopep8 ./ --recursive --in-place -a
-	autoflake --in-place --remove-all-unused-imports --remove-unused-variables -r ./
+# autoflake --in-place --remove-all-unused-imports --remove-unused-variables -r ./
 
 
 
@@ -43,7 +43,7 @@ migrate:
 	celery -A storegame beat
 
 # smtp сервер
-	python -m smtpd -n -c DebuggingServer localhost:1025
+	python3 -m smtpd -n -c DebuggingServer localhost:1025
 
 
 # Импорт экспорт БД

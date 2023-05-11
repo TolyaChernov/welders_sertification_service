@@ -465,7 +465,7 @@ class Application(models.Model):
     welder_card_id = models.CharField(
         max_length=2000,
         null=True,
-        default='---',
+        default="---",
         verbose_name="Номер удостоверения сварщика",
     )
 
@@ -497,21 +497,21 @@ class Application(models.Model):
     welder_material = models.CharField(
         max_length=2000,
         null=True,
-        default='---',
+        default="---",
         verbose_name="Сварочный материал",
     )
 
     weld_main_material_plate = models.CharField(
         max_length=2000,
         null=True,
-        default='---',
+        default="---",
         verbose_name="Материал основной - Лист",
     )
 
     weld_main_material_tube = models.CharField(
         max_length=2000,
         null=True,
-        default='---',
+        default="---",
         verbose_name="Материал основной - Труба",
     )
 

@@ -23,7 +23,7 @@ services:
     #   - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB='ptm_app'
-      - POSTGRES_USER=an'atol
+      - POSTGRES_USER='anatol'
       - POSTGRES_PASSWORD='1234'
 
 
@@ -137,11 +137,11 @@ services:
 
 
 
-  smtp:
-      image: namshi/smtp
-      container_name: smtp_relay
-      restart: always
-      ports:
-      - "25:25"
+  # smtp:
+  #     image: namshi/smtp
+  #     container_name: smtp_relay
+  #     restart: always
+  #     ports:
+  #     - "25:25"
 
 
