@@ -50,7 +50,9 @@ migrate:
 	python manage.py dumpdata --exclude auth.permission > db.json
 	python manage.py loaddata --exclude contenttypes> db.json
 
-
+# docker
+	docker run -p 8000:8000 wss
+	docker-compose up --build 
 
 
 

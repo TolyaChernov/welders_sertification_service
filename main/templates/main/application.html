@@ -225,7 +225,7 @@
 
 
 
-    <script type="text/javascript">
+    {% comment %} <script type="text/javascript">
 
         function showHide(element_id) {
             //Если элемент с id-шником element_id существует
@@ -245,7 +245,7 @@
             else alert("Элемент с id: " + element_id + " не найден!");
         }
 
-    </script>
+    </script> {% endcomment %}
 
 
 
@@ -278,19 +278,19 @@
                 <p class="right">
                     <label for="user_fio">Ф.И.О.*:</label>
                     &ensp;
-                    <input name="user_fio" type="text" placeholder="Иванов Иван Иванович">
+                    <input name="user_fio" type="text" placeholder="">
                 </p>
 
                 <p class="right">
                     <label for="user_telephon">Телефон*:</label>
                     &ensp;
-                    <input name="user_telephon" type="text" placeholder="+375-00-000-00-00">
+                    <input name="user_telephon" type="text" placeholder="">
                 </p>
 
                 <p class="right">
                     <label for="user_email">Email*:</label>
                     &ensp;
-                    <input name="user_email" type="text" placeholder="mail@mail.by">
+                    <input name="user_email" type="text" placeholder="">
                 </p>
             </fieldset>
 
@@ -303,7 +303,7 @@
                 <p class="right">
                     <label for="org_name">Наименование организации*:</label>
                     &ensp;
-                    <input name="org_name" type="text" size="71" placeholder='ОАО "Моя компания"'>
+                    <input name="org_name" type="text" size="71" placeholder=''>
                 </p>
 
                 <p class="right">
@@ -827,9 +827,9 @@
                     
 
                     <tr>
-                        <td><input type="text" name="welder_name" size="30" style="width: 290px;" placeholder="Иванов Иван Иванович"></td>
+                        <td><input type="text" name="welder_name" size="30" style="width: 290px;" placeholder=""></td>
                         <td><input type="text" name="welder_brand" size="10" style="width: 100px;"></td>
-                        <td><input type="text" name="welder_passport" size="25" style="text-transform: uppercase; width: 220px;" placeholder="КВ 1234567"></td>
+                        <td><input type="text" name="welder_passport" size="25" style="text-transform: uppercase; width: 220px;" placeholder=""></td>
                         <td><input type="text" name="welder_date_birth" style="width: 275px;" placeholder="дд.мм.гггг"></td>
                         <td valign="top"><a href="#" onclick="return rmline(this);"><button class="btn"><i
                                         class="fa fa-close"></i></button></td>
@@ -863,177 +863,6 @@
 
 
     <script>
-
-
-
-
-
-
-        function addstee_2() {
-            var add_row = document.getElementById("list_ug_steel");
-            console.log("РАБОТАЕТ ПРОГА", add_row)
-            let c = add_row.querySelectorAll('tr').length;
-            c = c
-
-            console.log("c=", c)
-
-            var new_row = document.createElement("tr");
-            console.log("new_row=", new_row)
-
-            var tdlabel = document.createElement("td");
-            console.log("tdlabel=", tdlabel)
-            let input_label = document.createElement("label")
-            input_label.innerHTML = `<label for="steel_1">Марка стали*</label>`
-            console.log("input_label=", input_label)
-            tdlabel.appendChild(input_label);
-            console.log("tdlabel=", tdlabel)
-            new_row.appendChild(tdlabel);
-            console.log("new_row=", new_row)
-
-
-            var tdsteel = document.createElement("td");
-            console.log("РАБОТАЕТ ПРОГА", tdsteel)
-            let input_steel = document.createElement("b")
-            input_steel.innerHTML = `<select name="list_ug_steel[${c}]" ><option value=""></option><option value="grp_1">Группа 1</option><option value="grp_1">Группа 2</option><option value="grp_1">Группа 3</option>`
-            console.log("РАБОТАЕТ ПРОГА", input_steel)
-            tdsteel.appendChild(input_steel);
-            console.log("РАБОТАЕТ ПРОГА", tdsteel)
-            new_row.appendChild(tdsteel);
-            console.log("РАБОТАЕТ ПРОГА", new_row)
-
-
-            var tdBUTT = document.createElement("td");
-            console.log("РАБОТАЕТ ПРОГА", tdBUTT)
-            let element_a = document.createElement("a")
-            element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
-            console.log("РАБОТАЕТ ПРОГА", element_a)
-            tdBUTT.appendChild(element_a);
-            console.log("РАБОТАЕТ ПРОГА", tdBUTT)
-            new_row.appendChild(tdBUTT);
-            console.log("РАБОТАЕТ ПРОГА", new_row)
-
-
-            var dodac = document.getElementById("list_ug_steel");
-            console.log("РАБОТАЕТ ПРОГА", dodac)
-            dodac.appendChild(new_row);
-            console.log("РАБОТАЕТ ПРОГА000", dodac)
-
-            return false;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        function addsteel(steel_table) {
-            var add_row = document.getElementById("list_ctyk_steel");
-            console.log("РАБОТАЕТ ПРОГА", add_row)
-            let c = add_row.querySelectorAll('tr').length;
-            c = c
-
-
-            console.log("c=", c)
-
-
-            var new_row = document.createElement("tr");
-            console.log("new_row=", new_row)
-
-
-            var tdlabel = document.createElement("td");
-            console.log("tdlabel=", tdlabel)
-            let input_label = document.createElement("label")
-            input_label.innerHTML = `<label for="steel_1">Марка стали*</label>`
-            console.log("input_label=", input_label)
-            tdlabel.appendChild(input_label);
-            console.log("tdlabel=", tdlabel)
-            new_row.appendChild(tdlabel);
-            console.log("new_row=", new_row)
-
-
-            var tdsteel = document.createElement("td");
-            console.log("РАБОТАЕТ ПРОГА", tdsteel)
-            let input_steel = document.createElement("b")
-            input_steel.innerHTML = `<input name="list_ctyk_steel[${c}]" type="text" style="width: 200px;">`
-            console.log("РАБОТАЕТ ПРОГА", input_steel)
-            tdsteel.appendChild(input_steel);
-            console.log("РАБОТАЕТ ПРОГА", tdsteel)
-            new_row.appendChild(tdsteel);
-            console.log("РАБОТАЕТ ПРОГА", new_row)
-
-
-            var tdBUTT = document.createElement("td");
-            console.log("РАБОТАЕТ ПРОГА", tdBUTT)
-            let element_a = document.createElement("a")
-            element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
-            console.log("РАБОТАЕТ ПРОГА", element_a)
-            tdBUTT.appendChild(element_a);
-            console.log("РАБОТАЕТ ПРОГА", tdBUTT)
-            new_row.appendChild(tdBUTT);
-            console.log("РАБОТАЕТ ПРОГА", new_row)
-
-
-            var dodac = document.getElementById("list_ctyk_steel");
-            console.log("РАБОТАЕТ ПРОГА", dodac)
-            dodac.appendChild(new_row);
-            console.log("РАБОТАЕТ ПРОГА000", dodac)
-
-
-            return false;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        function dodajWierszNew(table_ID) 
-
-            {
-                console.log("РАБОТАЕТ ПРОГА----------", table_ID)
-                var new_tr = document.querySelector('.new_tr').cloneNode(true);
-                document.getElementById(table_ID).appendChild(new_tr);
-
-                return false;
-            }
-
-
-
-
-
-
-
-           
-
-
-
-
-
-
-
-
-
-
-
-
 
         function dodajWiersz() {
             var add_row = document.getElementById("dowolna_nazwa");
