@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -47,15 +47,16 @@ def register(request):
                 form.save()
                 username = form.cleaned_data.get("username")
                 my_password1 = form.cleaned_data.get("password1")
-                user = authenticate(username=username, password=my_password1)
-                if user and user.is_active:
-                    login(request, user)
-                    return redirect("private_office")
+                # user = authenticate(username=username, password=my_password1)
+                # # if user and user.is_active:
+                # #     login(request, user)
+                # #     return redirect("private_office")
 
-                else:
-                    form.add_error(None, "Unknown or disabled account")
-                    return render(request, "users/register.html",
-                                  {"form": form})
+                # # else:
+                # #     form.add_error(None, "Unknown or disabled account")
+                # # return render(request, "users/register.html",
+                # #   {"form": form})
+                return redirect("private_office")
 
             else:
                 return render(request, "users/register.html", {"form": form})

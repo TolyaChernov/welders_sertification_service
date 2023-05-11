@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,
+                                       PasswordResetForm, SetPasswordForm,
                                        UserCreationForm)
 from django.contrib.auth.models import User
 from django.forms import ValidationError
@@ -154,3 +155,31 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+##############################
+class ResetPasswordUserForm(PasswordResetForm):
+    email = forms.CharField(
+        label="",
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form-input",
+                "placeholder": "Email"}),
+    )
+
+
+class SetPasswordUserForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(
+            attrs={"class": "form-input", "placeholder": "Новый пароль"}
+        ),
+    )
+    new_password2 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-input",
+                "placeholder": "Новый пароль еще раз"}
+        ),
+    )

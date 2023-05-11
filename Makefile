@@ -1,4 +1,4 @@
-start_mint: #start on linux mint
+start: #start on linux mint
 	python3 -m venv .venv
 	.venv/bin/python3 -m pip install --upgrade pip
 	.venv/bin/pip install -r requirements.txt
@@ -12,7 +12,14 @@ lint: #format
 	black .
 	isort .
 	autopep8 ./ --recursive --in-place -a
-	autoflake --in-place --remove-all-unused-imports --remove-unused-variables -r ./
+# autoflake --in-place --remove-all-unused-imports --remove-unused-variables -r ./
+
+
+
+migrate:
+	python3 manage.py makemigrations
+	python3 manage.py migrate
+
 
 
 
@@ -27,6 +34,26 @@ lint: #format
 
 	
 
+# Запуск Селери
+	python manage.py runserver
+	python -m celery -A storegame worker -l info -P gevent
+	python -m celery -A storegame flower --port=5555
+
+# селери-бит
+	celery -A storegame beat
+
+# smtp сервер
+	python3 -m smtpd -n -c DebuggingServer localhost:1025
+
+
+# Импорт экспорт БД
+	python manage.py dumpdata --exclude auth.permission > db.json
+	python manage.py loaddata --exclude contenttypes> db.json
+
+# docker
+	docker build --pull --rm -f "Dockerfile" -t wss:latest "."
+	docker run -p 8000:8000 wss
+	docker-compose up --build 
 
 
 

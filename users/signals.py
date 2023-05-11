@@ -1,39 +1,25 @@
 from django.contrib.auth.models import Group, User
+from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from main.models import User
 
-# @receiver(post_save, sender=User)
-# def add_score(instance, **kwargs):
-#     profile = instance.category
-#     num = User.objects.filter(category__title=instance.category)
-#     profile.score = num.count()
-#     profile.save()
-
-
-# @receiver(post_delete, sender=User)
-# def del_score(instance, **kwargs):
-#     profile = instance.category
-#     # profile.score -= 1
-#     # profile.save()
-#     num = User.objects.filter(category__title=instance.category)
-#     profile.score = num.count()
-#     profile.save()
-
 
 @receiver(post_save, sender=User)
 def create_user_profile(instance, **kwargs):
-    # if created:
-    print(
-        "*****************************************************************************************************************************************************************************************************************************************************************"
-    )
     a = list(instance.groups.all())
-    print(a)
     if len(a) == 0:
         instance.groups.add(Group.objects.get(name="customer"))
-    a = list(instance.groups.all())
-    print(a)
-    print(
-        "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-    )
+        list_mail = []
+        usermail = str(instance.email)
+        list_mail.append(usermail)
+        message_text = """Приветствуем Вас на нашем сервисе и благодарим за регистрацию. На сайте Вы можете сделать заявку и отслеживать ее статус"""
+        # message_text = '''Welcome to our service and thank you for registering. On the site you can make an application and track its status'''
+        send_mail(
+            "WELCOME",
+            message_text,
+            "support@example.com",
+            list_mail,
+            fail_silently=False,
+        )

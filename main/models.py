@@ -305,9 +305,9 @@ class Application(models.Model):
     )
 
     # Область распространения - Лист - Стыковые швы
-    sheet_butt_weld = models.CharField(
-        max_length=15, null=True, choices=select, verbose_name="Лист - Стыковой шов"
-    )
+    # sheet_butt_weld = models.CharField(
+    #     max_length=15, null=True, choices=select, verbose_name="Лист - Стыковой шов"
+    # )
 
     sheet_butt_weld_steel_grade = models.CharField(
         max_length=2000, null=True, verbose_name="Марка стали листа - Стыковой шов"
@@ -332,9 +332,9 @@ class Application(models.Model):
     )
 
     # Область распространения - Лист - Угловой - швы
-    sheet_fillet_weld = models.CharField(
-        max_length=15, null=True, choices=select, verbose_name="Лист - Угловой шов"
-    )
+    # sheet_fillet_weld = models.CharField(
+    #     max_length=15, null=True, choices=select, verbose_name="Лист - Угловой шов"
+    # )
 
     sheet_fillet_weld_steel_grade = models.CharField(
         max_length=2000, null=True, verbose_name="Марка стали листа - Угловой шов"
@@ -359,9 +359,9 @@ class Application(models.Model):
     )
 
     # Область распространения - Труба - Стыковой шов
-    tube_butt_weld = models.CharField(
-        max_length=15, null=True, choices=select, verbose_name="Труба - Стыковой шов"
-    )
+    # tube_butt_weld = models.CharField(
+    #     max_length=15, null=True, choices=select, verbose_name="Труба - Стыковой шов"
+    # )
 
     tube_butt_weld_steel_grade = models.CharField(
         max_length=2000, null=True, verbose_name="Марка стали трубы - Стыковой шов"
@@ -398,9 +398,9 @@ class Application(models.Model):
     )
 
     # Область распространения - Труба - Угловой шов
-    tube_fillet_weld = models.CharField(
-        max_length=15, null=True, choices=select, verbose_name="Труба - Угловой шов"
-    )
+    # tube_fillet_weld = models.CharField(
+    #     max_length=15, null=True, choices=select, verbose_name="Труба - Угловой шов"
+    # )
 
     tube_fillet_weld_steel_grade = models.CharField(
         max_length=2000, null=True, verbose_name="Марка стали трубы - Угловой шов"
@@ -465,6 +465,7 @@ class Application(models.Model):
     welder_card_id = models.CharField(
         max_length=2000,
         null=True,
+        default="---",
         verbose_name="Номер удостоверения сварщика",
     )
 
@@ -484,6 +485,7 @@ class Application(models.Model):
     start_date = models.CharField(
         max_length=2000,
         null=True,
+        default="NULL",
         verbose_name="Дата начала контроля",
     )
 
@@ -496,18 +498,21 @@ class Application(models.Model):
     welder_material = models.CharField(
         max_length=2000,
         null=True,
+        default="---",
         verbose_name="Сварочный материал",
     )
 
     weld_main_material_plate = models.CharField(
         max_length=2000,
         null=True,
+        default="---",
         verbose_name="Материал основной - Лист",
     )
 
     weld_main_material_tube = models.CharField(
         max_length=2000,
         null=True,
+        default="---",
         verbose_name="Материал основной - Труба",
     )
 

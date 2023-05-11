@@ -6,6 +6,6 @@ class UsersConfig(AppConfig):
     name = "users"
 
     def ready(self):
-        pass
+        import users.signals
 
-        # import storegame.signals
+        # import users.signals

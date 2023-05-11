@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-#$!rxq2rgk5*s3n8z=8q7u4urf&dz$d6g$xbkh344bs@h6b4@k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0:8000", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -255,6 +255,7 @@ LOGGING = {
 # CELERY_RESULT_BACKEND = "redis://my_redis:6379"
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = "localhost"
-EMAIL_PORT = 1025
+EMAIL_PORT = 25

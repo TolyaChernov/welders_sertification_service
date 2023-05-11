@@ -24,19 +24,11 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" name="next" value="{{ request.GET.next }}" />
-        <input type="submit" value="Войти">
+        <input type="submit" value="Войти" class="button vyp">
     </form>
     <br>
 
     
-    {% comment %} <h4>Вход через социальные сети:</h4>
-    <button>
-        <a href="#">GitHub</a>
-    </button>
-
-    <button>
-        <a href="{% provider_login_url "facebook" method="oauth2" %}">FaceBook</a>
-    </button> {% endcomment %}
 
 
     {% endblock %}
