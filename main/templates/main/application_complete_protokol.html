@@ -1,0 +1,393 @@
+
+
+
+{% extends 'main/private_office_s1.html' %} 
+{% block content_1 %}
+
+
+
+
+
+
+    <style>
+        {% comment %} body {
+            font-family: "Arial";
+            font-size: 18px;
+            border: 0px solid;
+            width: 920px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+            line-height: 18px;
+            
+        }
+
+        div {
+            border: 0px solid;
+            padding: 10px;
+        }
+
+        input[type=text],
+        textarea {
+            width: 450px;
+            padding: 10;
+            margin: 10;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+
+        /* Кнопки стиля */
+        .btn {
+            background-color: rgb(255, 255, 255);
+            /* Синий фон */
+            border: none;
+            /* Удалить границы */
+            color: rgb(182, 2, 2);
+            /* Белый текст */
+            padding: 1px 5px;
+            /* Немного отступов */
+            font-size: 18px;
+            /* Установите размер шрифта */
+            cursor: pointer;
+            /* Указатель мыши при наведении */
+            border-radius: 5px;
+        }
+
+        /* Более темный фон при наведении курсора мыши */
+        .btn:hover {
+            background-color: rgb(197, 83, 83);
+            color: rgb(255, 255, 255);
+        }
+
+        .btn:active {
+            background-color: rgb(142, 10, 10);
+            color: rgb(255, 255, 255);
+        }
+
+        fieldset {
+            border: 1px solid rgb(36, 37, 36);
+        }
+
+        label {
+            vertical-align: top;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+
+        .button {
+            /* Сбрасываем дефолтные стили */
+            border: none;
+            outline: none;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 12px;
+            /* Можно также использовать любые встроенные и кастомные шрифты, например, отсюда  */
+            font-family: Roboto, Verdana, Tahoma, sans;
+            /* Тут можно поэкспериментировать */
+            padding: 8px 8px;
+            border-radius: 8px;
+            color: rgb(0, 0, 0);
+        }
+
+        .button i {
+            margin-right: 3px;
+        }
+
+        .button+.button {
+            margin-left: 6px;
+        }
+
+        .button.blue {
+            background: #57ec63;
+            color: rgb(0, 0, 0);
+        }
+
+        .button.purple {
+            background: #9b59b6;
+        }
+
+
+        .button:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover.blue {
+            background: #4ec958;
+            color: rgb(0, 0, 0);
+        }
+
+        .button:hover.purple {
+            background: #a66bbe;
+        }
+
+        .button:active {
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:active.blue {
+            background: #40ad49;
+            color: rgb(15, 14, 109);
+        }
+
+        .button:active.purple {
+            background: #8f4bab;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .checkbox {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            margin: 10px 0 0 20px;
+        }
+
+        .checkbox+label {
+            position: relative;
+            padding: 0 0 0 45px;
+            cursor: pointer;
+        }
+
+        .checkbox+label:before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 40px;
+            height: 18px;
+            border-radius: 8px;
+            background: #CDD1DA;
+            box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2);
+            transition: .3s;
+        }
+
+        .checkbox+label:after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #FFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+            transition: .2s;
+        }
+
+        .checkbox:checked+label:before {
+            background: #57ec63;
+        }
+
+        .checkbox:checked+label:after {
+            left: 24px;
+        }
+
+        .checkbox:focus+label:before {
+            box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2), 0 0 0 3px rgba(255, 255, 255, 0.7);
+        } {% endcomment %}
+
+
+        div {
+            width: 650px;
+          }
+        
+          input[type="text"],
+          textarea {
+            width: auto;
+          }
+
+
+    </style>
+
+
+
+
+
+
+
+
+    
+
+    <br>
+    <br>
+    <h2><p class="center">Протокол заседания комиссии по аттестации сварщиков</p></h2>
+    {% comment %} <p class='center'>* редактирование</p> {% endcomment %}
+    <br>
+    <div class="body">
+        <form id="application" method="POST" action="" autocomplete="on">
+            {% csrf_token %}
+            
+
+
+            <fieldset>
+                <legend>
+                    <h4>Информация о результатах аттестации сварщиков</h4>
+                </legend>
+                <br>
+
+                {% comment %} <a href="#" onclick="return dodajWiersz();"><button class="button blue"><i class="fa fa-user-plus"></i>
+                        Добавить</button></a> {% endcomment %}
+
+                <link rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                <br>
+
+                <table id="dowolna_nazwa" border=0 cellspacing=1 cellpadding=3>
+
+                    <tr>
+                        <td style="width: 28%; text-align: center;">Ф.И.О.</td>
+                        <td style="width: 7%; text-align: center;">Клеймо</td>
+                        <td style="width: 12%; text-align: center;">VT</td>
+                        <td style="width: 7%; text-align: center;">RT/UT</td>
+                        <td style="width: 10%; text-align: center;">МИ</td>
+                        <td style="width: 12%; text-align: center;">Теоретические знания</td>
+                        <td style="width: 12%; text-align: center;">Практические навыки</td>
+                        <td style="width: 12%; text-align: center;">Общая оценка</td>
+                        </tr>
+                    
+                        {% for i in welder_list %}
+                        <tr>
+                        <td style="text-align: left;">{{i.0}}</td>
+                        <td style="text-align: left;">{{i.1}}</td>
+                        <td style="text-align: center;">
+                            <select name="vt" >
+                            <option value='удовл' >удовл</option>
+                            <option value='не удовл' >не удовл</option>
+                        </td>
+                        <td style="text-align: center;"><input name="rt_ut" type="text"></td>
+                        <td style="text-align: center;"><input name="mi" type="text"></td>
+                        <td style="text-align: center;">
+                            <select name="know_result" >
+                            <option value='удовл' >удовл</option>
+                            <option value='не удовл' >не удовл</option>
+    
+                        </td>
+                        <td style="text-align: center;">
+                            <select name="weld_result" >
+                            <option value='удовл' >удовл</option>
+                            <option value='не удовл' >не удовл</option>
+    
+                        </td>
+                        <td style="text-align: center;">
+                            <select name="total_result" >
+                            <option value='удовл' >удовл</option>
+                            <option value='не удовл' >не удовл</option>
+    
+                        </td>
+                        </tr>
+                        {% endfor %}
+
+                </table>
+            </fieldset>
+
+            <br>
+            <br>
+
+            <button type="submit">
+                <h3>Добавить в протокол</h3>
+            </button>
+            <button type="reset">
+                <h3>Отменить изменения</h3>
+            </button>
+        </form>
+
+    </div>
+
+
+
+
+
+
+
+    <script>
+
+        function dodajWiersz() {
+            var add_row = document.getElementById("dowolna_nazwa");
+            let c = add_row.querySelectorAll('tr').length;
+            c = --c
+
+
+            var new_row = document.createElement("tr");
+
+            var tdFIO = document.createElement("td");
+            let input_FIO = document.createElement("b")
+            input_FIO.innerHTML = `<input type="text" name="welder_name" size="50" style="width: 290px;" placeholder="">`
+
+            tdFIO.appendChild(input_FIO);
+            new_row.appendChild(tdFIO);
+
+            var tdBRAND = document.createElement("td");
+            let input_brand = document.createElement("b")
+            input_brand.innerHTML = `<input type="text" name="welder_brand" size="10" style="width: 100px;">`
+            tdBRAND.appendChild(input_brand);
+            new_row.appendChild(tdBRAND);
+
+            var tdPASSPORT = document.createElement("td");
+            let input_passport = document.createElement("b")
+            input_passport.innerHTML = `<input type="text" name="welder_passport" size="25" style="text-transform: uppercase; width: 220px;" placeholder="">`
+            tdPASSPORT.appendChild(input_passport);
+            new_row.appendChild(tdPASSPORT);
+
+            var tdDATE = document.createElement("td");
+            let input_date = document.createElement("b")
+            tdDATE.innerHTML = `<input type="text" name="welder_date_birth" style="width: 275px;" placeholder="дд.мм.гггг">`
+            tdBRAND.appendChild(input_date);
+            new_row.appendChild(tdDATE);
+
+            var tdBUTT = document.createElement("td");
+            let element_a = document.createElement("a")
+            element_a.innerHTML = `<a href="#" onclick="return rmline(this);" style="border: 0px;"><button class="btn"><i class="fa fa-close"></i></button>`
+            tdBUTT.appendChild(element_a);
+            new_row.appendChild(tdBUTT);
+
+            var dodac = document.getElementById("dowolna_nazwa");
+            dodac.appendChild(new_row);
+
+            return false;
+        }
+
+
+
+        function rmline(q) {
+            w = q.closest('tr')
+            w.parentElement.removeChild(w)
+            return false;
+        }
+
+    </script>
+{% endblock %}

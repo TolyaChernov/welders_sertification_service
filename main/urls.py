@@ -19,9 +19,15 @@ urlpatterns = [
         application_complete_akt,
         name="application_complete_akt",
     ),
+    path(
+        "application_complete_protokol/<int:pk>/",
+        application_complete_protokol,
+        name="application_complete_protokol",
+    ),
     path("application/<int:pk>/del/", application_del, name="application_del"),
     path("pdf_application/<int:pk>/", pdf_application, name="pdf_application"),
     path("pdf_akt/<int:pk>/", pdf_akt, name="pdf_akt"),
+    path("pdf_protokol/<int:pk>/", pdf_protokol, name="pdf_protokol"),
     path(
         "all_applications_give/",
         all_applications_give,

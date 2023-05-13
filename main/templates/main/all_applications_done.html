@@ -22,6 +22,12 @@
 <p>
   <a href="{% url 'pdf_application' pk=i.id %}">
     <button class="button pdf_z">Заявка(PDF)</button></a>
+  <a href="{% url 'pdf_akt' pk=i.id %}">
+    <button class="button pdf_akt">Акт(PDF)</button></a>
+  <a href="{% url 'pdf_akt' pk=i.id %}">
+    <button class="button pdf_akt">Протокол(PDF)</button></a>    
+  <a href="{% url 'pdf_akt' pk=i.id %}">
+    <button class="button pdf_akt">Удостоверение(PDF)</button></a>    
 </p>
 {% endfor %} 
 {% endif %} 
@@ -34,6 +40,10 @@
 <p>
   <a href="{% url 'pdf_application' pk=i.id %}">
     <button class="button pdf_z">Заявка(PDF)</button></a>
+  <a href="{% url 'pdf_protokol' pk=i.id %}">
+    <button class="button pdf_akt">Протокол(PDF)</button></a>    
+  <a href="{% url 'pdf_protokol' pk=i.id %}">
+    <button class="button pdf_akt">Удостоверение(PDF)</button></a>      
   <a href="{% url 'application_cancel' pk=i.id %}">
     <button class="button otm">Отменить</button></a>
  

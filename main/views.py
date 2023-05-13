@@ -626,6 +626,101 @@ def application_complete_akt(request, pk: int):
     )
 
 
+
+
+
+
+
+
+@login_required(login_url=reverse_lazy("login"))
+def application_complete_protokol(request, pk: int):
+    """
+    Запуск страницы для заполнения акта
+    """
+    title = "Редактирование заявки"
+    username = str(request.user)
+    if username == "admin":
+        group = "admin"
+    else:
+        user = get_object_or_404(User, username=username)
+        group = str(user.groups.get(user=user.id))
+
+    # Список список из несколькоих параметров для отображения на application_update.html
+    result = Application.objects.filter(pk=pk).first()
+    welder_name = result.welder_name
+    welder_name = welder_name.split("| ")
+    welder_brand = result.welder_brand
+    welder_brand = welder_brand.split("| ")
+    welder_list = []
+    for i in range(len(welder_name)):
+        default = []
+        default.append(welder_name[i])
+        default.append(welder_brand[i])
+        welder_list.append(default)
+
+    
+    # запись данных для акта в БД
+    if request.method == "POST":
+        list_name_param = [
+            "start_date",
+            "end_date",
+            "welder_material",
+            "weld_main_material_plate",
+            "weld_main_material_tube",
+            "chef_kom_pos",
+            "chef_kom_fio",
+            "kom_pos",
+            "kom_fio",
+        ]
+        list_param = []
+        result = dict(request.POST)
+
+        application = Application.objects.filter(pk=pk).first()
+        for i in range(len(list_name_param)):
+            name_param = list_name_param[i]
+            try:
+                param = str(result[name_param])
+                param = param[2:-2]
+            except KeyError:
+                param = "-"
+            if param == "":
+                param = "---"
+            param = param.replace("',", "|")
+            param = param.replace("'", "")
+            list_param.append(param)
+
+        application.start_date = list_param[0]
+        application.end_date = list_param[1]
+        application.welder_material = list_param[2]
+        application.weld_main_material_plate = list_param[3]
+        application.weld_main_material_tube = list_param[4]
+        application.chef_kom_pos = list_param[5]
+        application.chef_kom_fio = list_param[6]
+        application.kom_pos = list_param[7]
+        application.kom_fio = list_param[8]
+        application.save()
+        return redirect("all_applications_confirm")
+    return render(
+        request,
+        "main/application_complete_protokol.html",
+        {
+            "title": title,
+            "result": result,
+            "list": list,
+            "group": group,
+            "welder_list": welder_list,
+        },
+    )
+
+
+
+
+
+
+
+
+
+
 @login_required(login_url=reverse_lazy("login"))
 def application_del(request, pk: int):
     """
@@ -798,6 +893,79 @@ def pdf_akt(request, pk: int):
     result["kom_pos"] = result["kom_pos"].split("| ")
     result["kom_fio"] = result["kom_fio"].split("| ")
     pdf = render_to_pdf("pdf/pdf_akt.html", data)
+    return HttpResponse(pdf, content_type="application/pdf")
+
+
+@login_required(login_url=reverse_lazy("login"))
+def pdf_protokol(request, pk: int):
+    """
+    Формирование протокола испытаний в формате pdf
+    """
+    result = Application.objects.get(pk=pk).__dict__
+    welder_name = (str(result["welder_name"])).split("|")
+    welder_brand = (str(result["welder_brand"])).split("|")
+    welder_passport = (str(result["welder_passport"])).split("|")
+    welder_date_birth = (str(result["welder_date_birth"])).split("|")
+
+    welder_list = []
+    for i in range(len(welder_name)):
+        default = []
+        default.append(i + 1)
+        default.append(welder_name[i])
+        default.append(welder_brand[i])
+        default.append(welder_passport[i])
+        default.append(welder_date_birth[i])
+        welder_list.append(default)
+
+    result["start_date"] = datetime.datetime.strptime(
+        (result["start_date"]), "%Y-%m-%d"
+    ).date()
+
+    result["welder_list"] = welder_list
+
+    result["sposob_svarki"] = (
+        str(Welding_method.objects.get(id=result["sposob_svarki_id"]).weld_des)
+        + " "
+        + str(Welding_method.objects.get(id=result["sposob_svarki_id"]).weld_short)
+    )
+
+    result["welder_material"] = result["welder_material"].split(" - ")
+
+    result["mas"] = str(result["mas"]).split("|")
+    result["gpn"] = str(result["gpn"]).split("|")
+
+    result["sheet_butt_weld_position"] = str(
+        result["sheet_butt_weld_position"]
+    ).replace("|", ",")
+    result["sheet_fillet_weld_position"] = str(
+        result["sheet_fillet_weld_position"]
+    ).replace("|", ",")
+    result["tube_butt_weld_position"] = str(result["tube_butt_weld_position"]).replace(
+        "|", ","
+    )
+    result["tube_fillet_weld_position"] = str(
+        result["tube_fillet_weld_position"]
+    ).replace("|", ",")
+
+    list = []
+    for i in result["weld_main_material_plate"].split("| "):
+        default = []
+        list.append(i.split(" - "))
+
+    result["weld_main_material_plate"] = list
+
+    list = []
+    for i in result["weld_main_material_tube"].split("| "):
+        default = []
+        list.append(i.split(" - "))
+    result["weld_main_material_tube"] = list
+
+    data = {}
+    data = result
+
+    result["kom_pos"] = result["kom_pos"].split("| ")
+    result["kom_fio"] = result["kom_fio"].split("| ")
+    pdf = render_to_pdf("pdf/protokol.html", data)
     return HttpResponse(pdf, content_type="application/pdf")
 
 

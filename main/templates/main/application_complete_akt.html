@@ -300,7 +300,8 @@
                 <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
                     <tr>
                         <td>Способ сварки*: </td>
-                        <td><select name="sposob_svarki" value={{ result.sposob_svarki.weld_des }} >{{ result.sposob_svarki }}
+                        <td>{{ result.sposob_svarki.weld_des }}
+                            {% comment %} <select name="sposob_svarki" value={{ result.sposob_svarki.weld_des }} >{{ result.sposob_svarki }}
                                 <option value="" {% if result.sposob_svarki.weld_des == '' %} selected {% endif %} ></option>
                                 <option value='111' {% if result.sposob_svarki.weld_des == '111' %} selected {% endif %} >111 / SMAW / ручная дуговая сварка плавящимся покрытым электродом
                                 </option>
@@ -310,7 +311,7 @@
                                 <option value="136" {% if result.sposob_svarki.weld_des == '136' %} selected {% endif %} >136 / MAG / механизированная дуговая сварка в среде активных газов
                                     порошковой проволокой</option>
                                 <option value="141" {% if result.sposob_svarki.weld_des == '141' %} selected {% endif %} >141 / TIG / ручная дуговая сварка неплавящимся вольфрамовым
-                                    электродом</option>
+                                    электродом</option> {% endcomment %}
                         </td>
 
 
@@ -345,23 +346,28 @@
                                 <table id="list_ctyk_steel" style="vertical-align: top;">
                                     <tr>
                                         <td valign="top">Марка стали*: </td>
-                                        <td><textarea rows="2" cols="65" name="sheet_butt_weld_steel_grade" type="text" style="width: 250px;">{{ result.sheet_butt_weld_steel_grade }}</textarea></td>
-        
+                                        <td> {{ result.sheet_butt_weld_steel_grade }}
+                                            {% comment %} <textarea rows="2" cols="65" name="sheet_butt_weld_steel_grade" type="text" style="width: 250px;">{{ result.sheet_butt_weld_steel_grade }}</textarea> {% endcomment %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Толщина, мм: </td>
+                                        <td>от {{ result.sheet_butt_weld_min_thickn }} до {{ result.sheet_butt_weld_max_thickn }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Пространственные положения: </td>
+                                        <td>{{ result.sheet_butt_weld_position }}</td>
                                     </tr>
         
                                 </table>
         
-                                <br>
-                                <br>
         
-                                <label for="steel_1">Толщина, мм</label>
-                                <input name="sheet_butt_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.sheet_butt_weld_min_thickn }}">
+                                {% comment %} <label for="steel_1">Толщина, мм: от {{ result.sheet_butt_weld_min_thickn }} до {{ result.sheet_butt_weld_max_thickn }}</label> {% endcomment %}
+                                {% comment %} <input name="sheet_butt_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.sheet_butt_weld_min_thickn }}">
                                 <input name="sheet_butt_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
-                                    style="width: 50px;" value="{{ result.sheet_butt_weld_max_thickn }}">
-                                <br>
-                                <br>
+                                    style="width: 50px;" value="{{ result.sheet_butt_weld_max_thickn }}"> {% endcomment %}
         
-                                <label>Пространственные положения</label><br>
+                                {% comment %} <label>Пространственные положения</label><br>
                                 <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pa" value="PA" title="нижнее положение" {% if 'PA' in result.sheet_butt_weld_position %} checked {% endif %}><label
                                     for="l_s_pa" title="нижнее положение">PA</label>
                                 <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pc" value="PC"
@@ -374,7 +380,7 @@
                                     title="вертикальное положение, сварка сверху вниз" {% if 'PG' in result.sheet_butt_weld_position %} checked {% endif %}><label for="l_s_pg"
                                     title="вертикальное положение, сварка сверху вниз">PG</label>
                                 <input type="checkbox" name="sheet_butt_weld_position" id="l_s_pe" value="PE" title="потолочное положение" {% if 'PE' in result.sheet_butt_weld_position %} checked {% endif %}><label
-                                    for="l_s_pe" title="потолочное положение">PE</label>
+                                    for="l_s_pe" title="потолочное положение">PE</label> {% endcomment %}
         
                             </fieldset>
                         </td>
@@ -391,22 +397,31 @@
                                         Добавить</button></a> {% endcomment %}
         
                                 <table id="list_ug_steel" border=0 cellspacing=1 cellpadding=3>
-                                    <tr>
+                                    {% comment %} <tr>
                                         <td valign="top">Марка стали*: </td>
                                         <td><textarea rows="2" cols="65" name="sheet_fillet_weld_steel_grade" type="text" style="width: 250px;">{{ result.sheet_fillet_weld_steel_grade }}</textarea></td>
         
-                                        {% comment %} <td valign="top"><a href="#" onclick="return rmline(this);"><button class="btn"><i
-                                                        class="fa fa-close"></i></button></td> {% endcomment %}
+                                    </tr> {% endcomment %}
+                                    <tr>
+                                        <td valign="top">Марка стали*: </td>
+                                        <td> {{ result.sheet_fillet_weld_steel_grade }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Толщина, мм: </td>
+                                        <td>от {{ result.sheet_fillet_weld_min_thickn }} до {{ result.sheet_fillet_weld_max_thickn }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Пространственные положения: </td>
+                                        <td>{{ result.sheet_fillet_weld_position }}</td>
                                     </tr>
         
                                 </table>
         
         
-                                <!-- <label for="steel_1">Марки сталей*</label>
-                                <input name="steel_1" type="text" size="50" style="width: 200px;"> -->
-                                <br><br>
+                                {% comment %} <br><br>
                                 <label for="steel_1">Толщина, мм</label>
-                                <input name="sheet_fillet_weld_min_thickn" type="number" size="1" min="1" placeholder="от" style="width: 50px;" value="{{ result.sheet_fillet_weld_min_thickn }}">
+                                <input name="sheet_fillet_weld_min_thickn" type="number" size="1" min="1" placeholder="от" 
+                                style="width: 50px;" value="{{ result.sheet_fillet_weld_min_thickn }}">
                                 <input name="sheet_fillet_weld_max_thickn" type="number" size="1" max="1000" placeholder="до"
                                     style="width: 50px;" value="{{ result.sheet_fillet_weld_max_thickn }}">
         
@@ -423,9 +438,6 @@
                                     title="нижнее положение" {% if 'PB' in result.sheet_fillet_weld_position %} checked {% endif %}><label
                                     for="l_u_pa" title="нижнее положение">PB</label>
                                 
-                                {% comment %} <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pb" value="PB"
-                                    title="горизонтально-вертикальное положение" {% if 'PB' in result.sheet_fillet_weld_position %} checked {% endif %}><label for="l_u_pb"
-                                    title="горизонтально-вертикальное положение">PB</label> {% endcomment %}
                                 
                                 <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pc" value="PC"
                                     title="горизонтальное положение" {% if 'PC' in result.sheet_fillet_weld_position %} checked {% endif %}><label for="l_u_pc"
@@ -445,7 +457,7 @@
                                 
                                 <input type="checkbox" name="sheet_fillet_weld_position" id="l_u_pe" value="PE" 
                                     title="потолочное положение" {% if 'PE' in result.sheet_fillet_weld_position %} checked {% endif %}><label
-                                    for="l_u_pe" title="потолочное положение">PE</label>
+                                    for="l_u_pe" title="потолочное положение">PE</label> {% endcomment %}
         
                             </fieldset>
                         </td>
