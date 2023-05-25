@@ -15,7 +15,6 @@ def create_user_profile(instance, **kwargs):
         usermail = str(instance.email)
         list_mail.append(usermail)
         message_text = """Приветствуем Вас на нашем сервисе и благодарим за регистрацию. На сайте Вы можете сделать заявку и отслеживать ее статус"""
-        # message_text = '''Welcome to our service and thank you for registering. On the site you can make an application and track its status'''
         send_mail(
             "WELCOME",
             message_text,
